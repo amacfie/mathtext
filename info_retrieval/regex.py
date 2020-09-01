@@ -4,10 +4,14 @@ import json
 import multiprocessing
 import psutil
 import re
+import sys
 import tqdm
 
 NUM_CORES = psutil.cpu_count(logical=False)
-QUERY = r'n!\s+\\sim\s+\\sqrt'
+if len(sys.argv) < 2:
+    sys.exit('pass regex as argument')
+QUERY = sys.argv[1]
+print(f'Searching for {QUERY}')
 
 with open('../data/index.json') as f:
     index = json.load(f)
