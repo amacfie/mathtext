@@ -1,0 +1,29 @@
+This contains code for downloading, cleaning, and organizing a corpus of
+mathematical documents in LaTeX format.
+
+`install.sh` contains dependencies.
+it is recommended to use a Python virtual environment
+
+warning: downloading arXiv content will result in charges to your AWS
+account and unpacking many arXiv tar files takes a very long time (multiple
+days). processing stack exchange data involves reading multi-gigabyte files,
+16GB+ RAM recommended
+
+to get data run `./get.sh`
+
+set `export MATHTEXT_NUM_TARS=...`
+for number of arxiv tars to download (default is 2 (1GB))
+
+set `MATHTEXT_SKIP_PROJECTS` to a nonempty string to skip individual
+project sources (books, etc.)
+
+set `MATHTEXT_SKIP_SE` to a nonempty string to skip stack exchange sources
+
+output: files in `./documents`, and `./index.json` contains metadata for each
+
+For Stack Exchange content, each file is a question then an answer, where
+the question starts with `<QUESTION>` and the answer starts with `<ANSWER>`
+
+arXiv files are selectively included based on contents, see
+`cleantex.good_or_none`
+
