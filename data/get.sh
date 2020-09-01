@@ -1,12 +1,11 @@
 #!/bin/bash
+rm -rf documents
+mkdir documents
+echo "{}" > index.json
 
 if [[ -z "$MATHTEXT_NUM_TARS" ]]; then
   MATHTEXT_NUM_TARS=2
 fi
-
-mkdir documents
-echo "{}" > index.json
-
 if ((MATHTEXT_NUM_TARS > 0)); then
   # https://arxiv.org/help/bulk_data_s3#src
   s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays
@@ -54,7 +53,7 @@ if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
   python3 proc_qs.py cstheory.stackexchange.com/Posts.xml cstheory.stackexchange.com
   wget https://archive.org/download/stackexchange/mathoverflow.net.7z
   7z x mathoverflow.net.7z -omathoverflow.net
-  python3 proc_qs.py mathoverflow.com/Posts.xml mathoverflow.com
+  python3 proc_qs.py mathoverflow.net/Posts.xml mathoverflow.net
 
   rm -rf ./mathoverflow* ./cstheory* ./math.*
 fi

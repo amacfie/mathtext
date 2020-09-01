@@ -1,6 +1,8 @@
 This contains code for downloading, cleaning, and organizing a corpus of
 mathematical documents in LaTeX format.
 
+tested on Ubuntu 18 and 20
+
 `install.sh` contains dependencies.
 it is recommended to use a Python virtual environment
 

@@ -10,7 +10,7 @@ give some inspiration. see also
 
 exclude .git, .hg folders (i.e. hidden folders)
 
-to transfer, use multi-part 7z without compression
+to transfer, e.g. use multi-part 7z without compression
 
 # Information retrieval
 
