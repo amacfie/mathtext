@@ -8,6 +8,7 @@ mkdir documents
 echo "{}" > index.json
 
 if ((MATHTEXT_NUM_TARS > 0)); then
+  # https://arxiv.org/help/bulk_data_s3#src
   s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays
   python3 ./s3cmds.py $MATHTEXT_NUM_TARS > /tmp/s3cmds.txt
   source /tmp/s3cmds.txt
@@ -81,6 +82,11 @@ if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
   python3 ../proc_tex_proj.py linear-algebra https://gitlab.com/jim.hefferon/linear-algebra
   git clone https://github.com/jirilebl/diffyqs.git
   python3 ../proc_tex_proj.py diffyqs https://github.com/jirilebl/diffyqs.git
+  git clone https://github.com/boazbk/crypto.git
+  python3 ../proc_tex_proj.py crypto https://github.com/boazbk/crypto.git
+  git clone https://github.com/boazbk/tcs.git
+  python3 ../proc_tex_proj.py tcs https://github.com/boazbk/tcs.git
+
   mkdir book
   wget https://www.gutenberg.org/files/38769/38769-t/38769-t.tex -O book/tex.tex
   python3 ../proc_tex_proj.py book https://www.gutenberg.org/ebooks/38769

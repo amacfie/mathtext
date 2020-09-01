@@ -8,26 +8,7 @@ give some inspiration. see also
 
 # Data sources
 
-arxiv https://arxiv.org/help/bulk_data_s3#src
-
-other latex documents
-* http://joshua.smcvt.edu/linearalgebra/MatrixArithmetic.tex
-* https://code.google.com/archive/p/linear-algebra/source/default/source
-* https://digitalcommons.trinity.edu/mono/7/
-* https://digitalcommons.trinity.edu/mono/8/
-* https://www.stitz-zeager.com/latex-source-code.html
-* https://www.whitman.edu/mathematics/multivariable/src/
-* http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html
-* http://www.mecmath.net/
-
-markdown with inline latex
-* https://github.com/boazbk/tcs
-* https://github.com/boazbk/crypto
-
 exclude .git, .hg folders (i.e. hidden folders)
-
-e.g. flat directory with source files and one JSON file that maps filenames to
-metadata
 
 to transfer, use multi-part 7z without compression
 
