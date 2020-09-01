@@ -1,0 +1,6 @@
+data/documents
+data/index.json
+data/arXiv_src_manifest.xml
+data/*.txt
+archive
+
