@@ -8,6 +8,7 @@ import random
 import re
 import shutil
 import string
+import tqdm
 
 NUM_CORES = psutil.cpu_count(logical=False)
 
@@ -16,7 +17,6 @@ def random_string(n):
         random.choice(string.ascii_uppercase + string.digits)
         for _ in range(n)
     )
-
 
 # https://stackoverflow.com/a/4665027
 def find_all(a_str, sub):
@@ -28,7 +28,6 @@ def find_all(a_str, sub):
         start += len(sub) # use start += 1 to find overlapping matches
 
 def clean(fn):
-    print(fn)
     try:
         text = Path(fn).read_text()
     except:
@@ -52,11 +51,7 @@ def clean(fn):
     with open(fn, 'w') as f:
         f.write(text)
 
-with multiprocessing.Pool(NUM_CORES) as pool:
-    pool.map(clean, glob.glob('./gzfiles/**/*.tex'))
-
 def good_or_none(fn):
-    print(fn)
     try:
         text = Path(fn).read_text()
         if ('proof' in text and
@@ -68,21 +63,28 @@ def good_or_none(fn):
     except:
         return None
 
-with multiprocessing.Pool(NUM_CORES) as pool:
-    fns = pool.map(good_or_none, glob.glob('./gzfiles/**/*.tex'))
+if __name__ == '__main__':
+    tex_fns = glob.glob('./gzfiles/**/*.tex')
+    with multiprocessing.Pool(NUM_CORES) as pool:
+        list(tqdm.tqdm(pool.imap(clean, tex_fns), total=len(tex_fns)))
 
-with open('index.json') as f:
-    index = json.load(f)
-for fn in fns:
-    if fn is not None:
-        print(fn)
-        new_name = random_string(20)
-        index[new_name] = {
-            'source': 'arXiv',
-            'id': fn[len('./gzfiles/'):],
-        }
-        shutil.move(fn, './documents/' + new_name)
+    with multiprocessing.Pool(NUM_CORES) as pool:
+        fns = list(tqdm.tqdm(
+            pool.imap(good_or_none, tex_fns),
+            total=len(tex_fns),
+        ))
 
-with open('index.json', 'w') as f:
-    json.dump(index, f, indent=2)
+    with open('index.json') as f:
+        index = json.load(f)
+    for fn in fns:
+        if fn is not None:
+            new_name = random_string(20)
+            index[new_name] = {
+                'source': 'arXiv',
+                'id': fn[len('./gzfiles/'):],
+            }
+            shutil.move(fn, './documents/' + new_name)
+
+    with open('index.json', 'w') as f:
+        json.dump(index, f, indent=2)
 

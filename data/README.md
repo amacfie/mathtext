@@ -9,7 +9,7 @@ it is recommended to use a Python virtual environment
 warning: downloading arXiv content will result in charges to your AWS
 account and unpacking many arXiv tar files takes a very long time (multiple
 days). processing stack exchange data involves reading multi-gigabyte files,
-16GB+ RAM recommended
+16GB+ RAM recommended. ensure you have sufficient storage space.
 
 to get data run `./get.sh`
 

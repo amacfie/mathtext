@@ -130,3 +130,5 @@ fi
 
 python3 ./post_proc.py
 
+du -sh ./documents
+

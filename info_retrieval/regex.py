@@ -1,24 +1,35 @@
 from pathlib import Path
 import glob
+import json
 import multiprocessing
 import psutil
+import re
+import tqdm
 
 NUM_CORES = psutil.cpu_count(logical=False)
-QUERY = '\sqrt{x} + \sqrt{y} + \sqrt{z}'
+QUERY = r'n!\s+\\sim\s+\\sqrt'
 
-def search(fn):
+with open('../data/index.json') as f:
+    index = json.load(f)
+
+def search(key):
+    fn = '../data/documents/' + key
     text = Path(fn).read_text()
-    if QUERY in text:
-        return fn
+    if re.search(QUERY, text):
+        return key
     else:
         return None
 
-with multiprocessing.Pool(NUM_CORES) as pool:
-    results = pool.map(search, glob.glob('../data/documents/*'))
-    print(f'Searched {len(results)} files.')
+if __name__ == '__main__':  # req'd apparently
+    with multiprocessing.Pool(NUM_CORES) as pool:
+        # https://stackoverflow.com/a/45276885
+        results = list(tqdm.tqdm(
+            pool.imap(search, index.keys()),
+            total=len(index.keys()),
+        ))
     positives = [ result for result in results if result is not None ]
-    if positives:
-        print(''.join(positives))
-    else:
-        print('No matches found.')
+    print(f'{len(positives)} matches found.')
+    print(json.dumps({
+        positive: index[positive] for positive in positives
+    }, indent=2))
 
