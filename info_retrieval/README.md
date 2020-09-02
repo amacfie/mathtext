@@ -22,8 +22,8 @@ four levels:
 Regular expressions and structural search allow for backreferences which let us
 search for, say, `something^2 + something`, matching `x^2 + x` and `y^2 + y`
 but not `x^2 + y`.
-(Technically regular expressions can't have unbounded-length backreferences but
-they're in PCRE.)
+(Technically _regular_ expressions can't have unbounded-length backreferences
+but they're in PCRE.)
 
 
 ## Regular expressions

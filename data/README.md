@@ -1,30 +1,30 @@
-This contains code for downloading, cleaning, and organizing a corpus of
+This folder contains code for downloading, cleaning, and organizing a corpus of
 mathematical documents in LaTeX format.
 
-tested on Ubuntu 18 and 20
+see also:
+* other tools for downloading bulk data from arXiv, e.g. https://github.com/armancohan/arxiv-tools
+
+tested on _Ubuntu 18 and 20_
 
 `install.sh` contains dependencies.
 it is recommended to use a Python virtual environment
 
-warning: downloading arXiv content will result in charges to your AWS
+_warning_: downloading arXiv content will result in charges to your AWS
 account and unpacking many arXiv tar files takes a very long time (multiple
 days). processing stack exchange data involves reading multi-gigabyte files,
 16GB+ RAM recommended. ensure you have sufficient storage space.
 
-to get data run `./get.sh`
+* set `export MATHTEXT_NUM_TARS=...` for number of arXiv tars to download (default is 2 (1GB))
+* set `MATHTEXT_SKIP_PROJECTS` to a nonempty string to skip individual project sources (books, etc.)
+* set `MATHTEXT_SKIP_SE` to a nonempty string to skip stack exchange sources
 
-set `export MATHTEXT_NUM_TARS=...`
-for number of arxiv tars to download (default is 2 (1GB))
+after setting variables, to get data run `./get.sh`
 
-set `MATHTEXT_SKIP_PROJECTS` to a nonempty string to skip individual
-project sources (books, etc.)
+_output_: files in `./documents/`, and `./index.json` contains metadata for each
 
-set `MATHTEXT_SKIP_SE` to a nonempty string to skip stack exchange sources
-
-output: files in `./documents`, and `./index.json` contains metadata for each
-
-For Stack Exchange content, each file is a question then an answer, where
-the question starts with `<QUESTION>` and the answer starts with `<ANSWER>`
+For Stack Exchange content, each output file is a question then an answer,
+where the question starts with `<QUESTION>` and the answer starts with
+`<ANSWER>`
 
 arXiv files are selectively included based on contents, see
 `cleantex.good_or_none`
