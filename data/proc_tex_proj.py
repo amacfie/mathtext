@@ -17,6 +17,7 @@ if __name__ == '__main__':
 
     with open('../index.json') as f:
         index = json.load(f)
+    # excludes hidden folders
     for fn in glob.glob(folder + '/**/*.tex') + glob.glob(folder + '/**/*.md'):
         name = random_string(20)
         new_fn = '../documents/' + name

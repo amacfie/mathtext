@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from pathlib import Path
 import glob
 import json
@@ -25,6 +26,9 @@ def search(key):
         return None
 
 if __name__ == '__main__':  # req'd apparently
+    # since there are many small documents, they can be processed in parallel,
+    # each worker need only have one document open at a time for low memory
+    # usage
     with multiprocessing.Pool(NUM_CORES) as pool:
         # https://stackoverflow.com/a/45276885
         results = list(tqdm.tqdm(

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 sudo apt update
 sudo apt install s3cmd p7zip-full parallel
 pip3 install unp beautifulsoup4 unidecode tqdm

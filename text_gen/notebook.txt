@@ -1,0 +1,26 @@
+https://cloud.google.com/deep-learning-vm
+base CUDA 10.0
+encoding got to about half of 1.7GB train.txt with 24GB of RAM
+48GB was plenty
+
+in jupyter terminal:
+gcloud init
+log in with google account
+delete ~/.gsutil if necessary https://stackoverflow.com/questions/27275063/gsutil-copy-returning-accessdeniedexception-403-insufficient-permission-from#comment69734633_27298944
+
+!git clone https://github.com/nshepperd/gpt-2.git
+%cd gpt-2
+1.12 didn't work
+!pip install tensorflow-gpu==1.15
+!pip install -r requirements.txt
+!gsutil cp gs://mathtextdata/train.txt .
+
+!python download_model.py 117M
+!split --bytes 100M --numeric-suffixes --suffix-length=3 train.txt train.txt.
+!mkdir train
+!mv -t train ./train.txt.*
+!PYTHONPATH=src ./encode.py ./train/ ./encoded.npz
+!gsutil cp ./encoded.npz gs://mathtextdata
+import tensorflow as tf
+tf.test.is_gpu_available()
+!PYTHONPATH=src python train.py  --model_name 117M --dataset encoded.npz --batch_size 1 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128

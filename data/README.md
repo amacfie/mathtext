@@ -29,3 +29,5 @@ the question starts with `<QUESTION>` and the answer starts with `<ANSWER>`
 arXiv files are selectively included based on contents, see
 `cleantex.good_or_none`
 
+to transfer, e.g. use multi-part 7z (without compression if that's faster)
+

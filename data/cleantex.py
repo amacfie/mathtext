@@ -64,7 +64,9 @@ def good_or_none(fn):
         return None
 
 if __name__ == '__main__':
+    print('finding all .tex files...')
     tex_fns = glob.glob('./gzfiles/**/*.tex')
+    print('processing .tex files...')
     with multiprocessing.Pool(NUM_CORES) as pool:
         list(tqdm.tqdm(pool.imap(clean, tex_fns), total=len(tex_fns)))
 
