@@ -1,4 +1,5 @@
-https://github.com/amacfie/mathtext/
+[![GitHub](https://img.shields.io/github/commit-activity/m/amacfie/mathtext)](https://github.com/amacfie/mathtext/)
+
 
 original motivation: enter math problem then automatically analyze corpus to
 generate "solutions" which may at least give useful ideas/inspiration.
