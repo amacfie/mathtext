@@ -32,6 +32,9 @@ but they're in PCRE.)
 
 you'll likely want to use single quotes to disable shell replacements
 
+set `MATHTEXT_NUM_WORKERS`, e.g. run `export MATHTEXT_NUM_WORKERS=...`, to
+modify the number of processes used (default is number of cores)
+
 a tool like https://regex101.com/ can be helpful
 
 accelerating regex search with indexing:

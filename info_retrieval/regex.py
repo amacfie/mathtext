@@ -3,12 +3,18 @@ from pathlib import Path
 import glob
 import json
 import multiprocessing
+import os
 import psutil
 import re
 import sys
 import tqdm
 
-NUM_CORES = psutil.cpu_count(logical=False)
+if ('MATHTEXT_NUM_WORKERS' in os.environ and
+    os.environ['MATHTEXT_NUM_WORKERS'].strip()
+):
+    NUM_WORKERS = int(os.environ['MATHTEXT_NUM_WORKERS'])
+else:
+    NUM_WORKERS = psutil.cpu_count(logical=False)
 if len(sys.argv) < 2:
     sys.exit('pass regex as argument')
 QUERY = sys.argv[1]
@@ -29,7 +35,7 @@ if __name__ == '__main__':  # req'd apparently
     # since there are many small documents, they can be processed in parallel,
     # each worker need only have one document open at a time for low memory
     # usage
-    with multiprocessing.Pool(NUM_CORES) as pool:
+    with multiprocessing.Pool(NUM_WORKERS) as pool:
         # https://stackoverflow.com/a/45276885
         results = list(tqdm.tqdm(
             pool.imap(search, index.keys()),
