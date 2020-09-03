@@ -1,4 +1,4 @@
-[![GitHub](https://img.shields.io/github/commit-activity/m/amacfie/mathtext)](https://github.com/amacfie/mathtext/)
+[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com/amacfie/mathtext/)
 
 
 original motivation: enter math problem then automatically analyze corpus to
