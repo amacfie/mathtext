@@ -1,4 +1,4 @@
-computation with LaTeX math corpus
+https://github.com/amacfie/mathtext/
 
 original motivation: enter math problem then automatically analyze corpus to
 generate "solutions" which may at least give useful ideas/inspiration.
