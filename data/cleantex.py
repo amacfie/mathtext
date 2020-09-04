@@ -46,7 +46,7 @@ def clean(fn):
     if '\\begin{document}' in text:
         text = text[text.index('\\begin{document}'):]
     if '\\end{document}' in text:
-        text = text[:text.index('\\end{document}')]
+        text = text[:text.index('\\end{document}')+len('\\end{document}')]
 
     with open(fn, 'w') as f:
         f.write(text)
