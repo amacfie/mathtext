@@ -1,6 +1,5 @@
 from pathlib import Path
 from unidecode import unidecode
-import glob
 import json
 import multiprocessing
 import os
