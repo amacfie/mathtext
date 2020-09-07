@@ -9,39 +9,45 @@ fi
 if ((MATHTEXT_NUM_TARS > 0)); then
   # https://arxiv.org/help/bulk_data_s3#src
   s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays
-  python3 ./s3cmds.py $MATHTEXT_NUM_TARS > /tmp/s3cmds.txt
-  source /tmp/s3cmds.txt
+  python3 ./s3cmds.py $MATHTEXT_NUM_TARS > ./s3cmds.txt
 
-  mkdir gzfiles
+  # https://stackoverflow.com/a/1521498
+  while IFS="" read -r p || [ -n "$p" ]
+  do
+    eval $p
+    mkdir gzfiles
 
-  # https://unix.stackexchange.com/a/474807
-  for f in ./*.tar; do
-    sem -j +0 "tar --strip-components=1 -xvf $f -C ./gzfiles; rm $f"
-  done
-  sem --wait
+    for f in ./*.tar; do
+      tar --strip-components=1 -xvf $f -C ./gzfiles
+      rm $f
+    done
 
-  cd ./gzfiles
+    cd ./gzfiles
 
-  # some .gz files are compressed files
-  for f in ./*.gz; do
-    # https://stackoverflow.com/a/31195882
-    if file $f | grep -q 'tex'; then
-      gunzip $f
-      mv `basename $f .gz` `basename $f .gz`.tex
-    fi
-  done
+    # some .gz files are compressed files
+    # https://unix.stackexchange.com/a/474807
+    for f in ./*.gz; do
+      # https://stackoverflow.com/a/31195882
+      if file $f | grep -q 'tex'; then
+        gunzip $f
+        mv `basename $f .gz` `basename $f .gz`.tex
+      fi
+    done
 
-  # some .gz files are compressed folders
-  for f in ./*.gz; do
-    sem -j +0 "tar -zxvf $f --one-top-level; rm $f"
-  done
-  sem --wait
+    # some .gz files are compressed folders
+    for f in ./*.gz; do
+      # https://unix.stackexchange.com/a/535624
+      sem -j +0 "tar --wildcards -zxvf $f '*.tex' --one-top-level"
+    done
+    sem --wait
 
-  cd ../
+    cd ../
 
-  python3 ./cleantex.py
+    python3 ./cleantex.py
 
-  rm -rf ./gzfiles
+    rm -rf ./gzfiles
+  done < ./s3cmds.txt
+  rm ./s3cmds.txt
 fi
 
 if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
