@@ -18,7 +18,8 @@ days). processing stack exchange data involves reading multi-gigabyte files,
 * set `MATHTEXT_SKIP_PROJECTS` to a nonempty string to skip individual project sources (books, etc.)
 * set `MATHTEXT_SKIP_SE` to a nonempty string to skip stack exchange sources
 
-after setting variables, to get data run `./get.sh`
+After setting variables, to get data run `./get.sh`.
+It may take a long time, so running from tmux is a good idea.
 
 _output_: files in `./documents/`, and `./index.json` contains metadata for each
 

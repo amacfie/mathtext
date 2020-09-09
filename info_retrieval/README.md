@@ -1,3 +1,6 @@
+Here we go over ways to search a LaTeX corpus and present a regular expression
+script.
+
 see also:
 * https://search.mathweb.org/
 * [D. Pineau - Math-aware search engines](https://www.groundai.com/project/math-aware-search-engines-physics-applications-and-overview/1)
