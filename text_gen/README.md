@@ -3,6 +3,7 @@ encoding got to about half of 1.7GB train.txt with 24GB of RAM,
 48GB was plenty.
 for 10GB dataset peak memory during encoding was 29GB, took 3.5hrs.
 training required same memory.
+for 117M, we can have a batch size of 3 on T4.
 -->
 
 The following is a tutorial for using a text generation model with the corpus.
@@ -71,8 +72,8 @@ rm documents.tar
 
 ## Preparing to train (GPU)
 
-You can use `117M` or any of the other available pretrained models:
-https://github.com/openai/gpt-2/issues/209#issuecomment-554246634
+You can use `117M` or any of the other [available pretrained
+models](https://github.com/openai/gpt-2/issues/209#issuecomment-554246634).
 We use `farrell236`'s fork of 
 https://github.com/nshepperd/gpt-2
 due to [this issue](https://github.com/nshepperd/gpt-2/issues/33).
@@ -96,7 +97,7 @@ some trial and error may be required https://stackoverflow.com/questions/4513280
 
 since the following is a long-running command you may want to run it in tmux:
 ```bash
-PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batch_size 2 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128 --val_every 100
+PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batch_size 3 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128 --val_every 100
 ```
 
 this will keep running indefinitely. stop it when you wish.
@@ -125,8 +126,8 @@ to learn about extra parameters for this script.
 ## TPU usage
 
 Shawn Presser's TPU version
-  https://github.com/shawwn/gpt-2
-  https://colab.research.google.com/drive/1BXry0kcm869-RVHHiY6NZmY9uBzbkf1Q
+* https://github.com/shawwn/gpt-2
+* https://colab.research.google.com/drive/1BXry0kcm869-RVHHiY6NZmY9uBzbkf1Q
 
 for TPUs "The rule of thumb is to use batches of 128 elements per
 core (ex: batch size of 128*8=1024 for a TPU with 8 cores)."

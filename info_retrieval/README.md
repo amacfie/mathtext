@@ -1,5 +1,5 @@
-Here we go over ways to search a LaTeX corpus and present a regular expression
-script.
+Here we go over ways to search a LaTeX corpus including the provided
+`./regex.py` script.
 
 see also:
 * https://search.mathweb.org/
@@ -33,7 +33,8 @@ but they're in PCRE.)
 
 `./regex.py <regex>`
 
-you'll likely want to use single quotes to disable shell replacements
+you'll likely want to use single quotes around the regex to disable shell
+replacements, e.g. `./regex.py '\\sqrt{[a-z]}'`
 
 set `MATHTEXT_NUM_WORKERS`, e.g. run `export MATHTEXT_NUM_WORKERS=...`, to
 modify the number of processes used (default is number of cores)
