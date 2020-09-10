@@ -1,4 +1,4 @@
-Here we go over ways to search a LaTeX corpus including the provided
+Here we discuss some ways to search a LaTeX corpus including the provided
 `./regex.py` script.
 
 see also:
