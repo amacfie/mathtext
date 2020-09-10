@@ -126,11 +126,8 @@ We can now generate samples
 ```bash
 python ./src/interactive_conditional_samples.py --model_name mymodel
 ```
-Run
-```bash
-python ./src/interactive_conditional_samples.py --help
-```
-to learn about extra parameters for this script.
+Run `python src/interactive_conditional_samples.py --help`
+to read about extra parameters for this script.
 
 ## TPU usage
 
