@@ -18,27 +18,28 @@ applications: generate inspiration/ideas for next steps in a proof
 
 ## Model: GPT-2
 
-Of models currently in huggingface collection, GPT-2 seems uniquely
-appropriate.
-(However huggingface is more difficult to use than a specialized script.)
+We'll use GPT-2 although alternatives exist such as
+[Transformer-XL](https://github.com/kimiyoung/transformer-xl) with a
+character-level tokenizer (see
+[this experiment](https://arxiv.org/abs/1912.01982)).
 
 GPT-2 uses byte pair encoding which means it can generate text at the
 character level
 
-GPT-2 pretrained models smaller than "medium" are pretty bad for natural
-language
+GPT-2 pretrained models smaller than "medium" (345M) are pretty bad for natural
+language so we might not expect any better results from them for this task
 
 We'll "fine-tune" a pretrained model, which basically means using the same
 architecture and initializing parameters to the values in the model
 
-general notes:
+some general notes on working with GPT-2:
 https://medium.com/@NPCollapse/replicating-gpt2-1-5b-86454a7f26af
 
 ## Configuring VM
 
 If you're a researcher, see [TensorFlow Research Cloud](https://www.tensorflow.org/tfrc)
 to apply for free TPU credits.
-You may want to experiment with a GPU first.
+You may still want to experiment with a GPU first.
 
 It's easiest to use Google's
 [deep learning image](https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning?_ga=2.41035681.2087968058.1597093079-761847582.1591646209).
@@ -80,7 +81,7 @@ rm documents.tar
 
 You can use `117M` or any of the other [available pretrained
 models](https://github.com/openai/gpt-2/issues/209#issuecomment-554246634).
-We use `farrell236`'s fork of 
+We use `farrell236`'s fork of
 https://github.com/nshepperd/gpt-2
 due to [this issue](https://github.com/nshepperd/gpt-2/issues/33).
 
@@ -98,15 +99,17 @@ PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
 
 ## Training
 
-"pick the largest batch size you can fit on your GPU".
-some trial and error may be required https://stackoverflow.com/questions/45132809/how-to-select-batch-size-automatically-to-fit-gpu
+Pick the largest batch size you can fit on your GPU;
+some trial and error may be required.
+Bigger models take more VRAM.
 
-since the following is a long-running command you may want to run it in tmux:
+We are ready to train.
+Since the following is a long-running command you may want to run it in tmux:
 ```bash
 PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batch_size 3 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128 --val_every 100
 ```
 
-this will keep running indefinitely. stop it when you wish.
+This will keep running indefinitely. Stop it when you wish.
 
 
 ## Sampling
@@ -131,10 +134,10 @@ to learn about extra parameters for this script.
 
 ## TPU usage
 
-Shawn Presser's TPU version
+See Shawn Presser's TPU version
 * https://github.com/shawwn/gpt-2
 * https://colab.research.google.com/drive/1BXry0kcm869-RVHHiY6NZmY9uBzbkf1Q
 
-for TPUs "The rule of thumb is to use batches of 128 elements per
+For TPUs "The rule of thumb is to use batches of 128 elements per
 core (ex: batch size of 128*8=1024 for a TPU with 8 cores)."
 
