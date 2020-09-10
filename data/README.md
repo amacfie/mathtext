@@ -3,6 +3,7 @@ mathematical documents in LaTeX format.
 
 see also:
 * other tools for downloading bulk data from arXiv, e.g. https://github.com/armancohan/arxiv-tools
+* [S2ORC: The Semantic Scholar Open Research Corpus](https://arxiv.org/pdf/1911.02782.pdf)
 
 tested on _Ubuntu 18 and 20_
 

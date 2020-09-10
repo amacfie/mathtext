@@ -1,15 +1,10 @@
+from clean_tex import rewrite_or_delete
+from utils import random_string
+
 import glob
 import json
-import random
 import shutil
-import string
 import sys
-
-def random_string(n):
-    return ''.join(
-        random.choice(string.ascii_uppercase + string.digits)
-        for _ in range(n)
-    )
 
 if __name__ == '__main__':
     folder = sys.argv[1]
@@ -18,6 +13,8 @@ if __name__ == '__main__':
     with open('../index.json') as f:
         index = json.load(f)
     # excludes hidden folders
+    for fn in glob.glob(folder + '/**/*.tex', recursive=True):
+        rewrite_or_delete(fn)
     for fn in (glob.glob(folder + '/**/*.tex', recursive=True) +
         glob.glob(folder + '/**/*.md', recursive=True)
     ):

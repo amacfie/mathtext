@@ -8,7 +8,7 @@ if [[ -z "$MATHTEXT_NUM_TARS" ]]; then
 fi
 if ((MATHTEXT_NUM_TARS > 0)); then
   # https://arxiv.org/help/bulk_data_s3#src
-  s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays
+  s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays --force
   python3 ./s3cmds.py $MATHTEXT_NUM_TARS > ./s3cmds.txt
 
   # https://stackoverflow.com/a/1521498
@@ -43,11 +43,11 @@ if ((MATHTEXT_NUM_TARS > 0)); then
 
     cd ../
 
-    python3 ./cleantex.py
+    python3 ./proc_arxiv.py
 
     rm -rf ./gzfiles
   done < ./s3cmds.txt
-  rm ./s3cmds.txt
+  rm ./s3cmds.txt ./arXiv_src_manifest.xml
 fi
 
 if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
@@ -67,29 +67,29 @@ fi
 if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
   mkdir texstuff
   cd texstuff
-  git clone https://github.com/OpenLogicProject/OpenLogic.git
+  git clone --depth=1 https://github.com/OpenLogicProject/OpenLogic.git
   python3 ../proc_tex_proj.py OpenLogic https://github.com/OpenLogicProject/OpenLogic
-  git clone https://github.com/Ben-McKay/concrete-algebra.git
+  git clone --depth=1 https://github.com/Ben-McKay/concrete-algebra.git
   python3 ../proc_tex_proj.py concrete-algebra https://github.com/Ben-McKay/concrete-algebra
-  git clone https://github.com/ULeth-Math-CS/APEXCalculusV4.git
+  git clone --depth=1 https://github.com/ULeth-Math-CS/APEXCalculusV4.git
   python3 ../proc_tex_proj.py APEXCalculusV4 https://github.com/ULeth-Math-CS/APEXCalculusV4
-  git clone https://github.com/ULeth-Math-CS/Math1410-Text.git
+  git clone --depth=1 https://github.com/ULeth-Math-CS/Math1410-Text.git
   python3 ../proc_tex_proj.py Math1410-Text https://github.com/ULeth-Math-CS/Math1410-Text
-  git clone https://github.com/ULeth-Math-CS/Math1010Text.git
+  git clone --depth=1 https://github.com/ULeth-Math-CS/Math1010Text.git
   python3 ../proc_tex_proj.py Math1010Text https://github.com/ULeth-Math-CS/Math1010Text
-  git clone https://github.com/ULeth-Math-CS/CalculusTexts.git
+  git clone --depth=1 https://github.com/ULeth-Math-CS/CalculusTexts.git
   python3 ../proc_tex_proj.py CalculusTexts https://github.com/ULeth-Math-CS/CalculusTexts
-  git clone https://github.com/jirilebl/ra.git
+  git clone --depth=1 https://github.com/jirilebl/ra.git
   python3 ../proc_tex_proj.py ra https://github.com/jirilebl/ra
-  git clone https://github.com/HoTT/book.git
+  git clone --depth=1 https://github.com/HoTT/book.git
   python3 ../proc_tex_proj.py book https://github.com/HoTT/book
-  git clone https://gitlab.com/jim.hefferon/linear-algebra.git
+  git clone --depth=1 https://gitlab.com/jim.hefferon/linear-algebra.git
   python3 ../proc_tex_proj.py linear-algebra https://gitlab.com/jim.hefferon/linear-algebra
-  git clone https://github.com/jirilebl/diffyqs.git
+  git clone --depth=1 https://github.com/jirilebl/diffyqs.git
   python3 ../proc_tex_proj.py diffyqs https://github.com/jirilebl/diffyqs.git
-  git clone https://github.com/boazbk/crypto.git
+  git clone --depth=1 https://github.com/boazbk/crypto.git
   python3 ../proc_tex_proj.py crypto https://github.com/boazbk/crypto.git
-  git clone https://github.com/boazbk/tcs.git
+  git clone --depth=1 https://github.com/boazbk/tcs.git
   python3 ../proc_tex_proj.py tcs https://github.com/boazbk/tcs.git
 
   mkdir book

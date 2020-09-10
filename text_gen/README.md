@@ -1,4 +1,10 @@
 <!--
+* size of pretrained model
+* GPT-2 vs transformer xl
+* optimizer
+* learning rate
+-->
+<!--
 encoding got to about half of 1.7GB train.txt with 24GB of RAM,
 48GB was plenty.
 for 10GB dataset peak memory during encoding was 29GB, took 3.5hrs.

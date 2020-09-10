@@ -4,6 +4,7 @@ import json
 import multiprocessing
 import os
 import psutil
+import re
 import tqdm
 
 NUM_CORES = psutil.cpu_count(logical=False)
@@ -13,6 +14,9 @@ def proc(key):
     try:
         text = Path(fn).read_text()
         text = unidecode(text)
+        text = re.sub(r'\n{2,}', '\n', text)
+        text = re.sub(r' {2,}', ' ', text)
+        text = text.strip()
         with open(fn, 'w') as f:
             f.write(text)
     except:

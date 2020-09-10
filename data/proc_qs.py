@@ -1,18 +1,12 @@
+from utils import random_string
+
 from bs4 import BeautifulSoup
 from pathlib import Path
 import glob
 import json
 import os
-import random
-import string
 import sys
 import xml.etree.ElementTree as ET
-
-def random_string(n):
-    return ''.join(
-        random.choice(string.ascii_uppercase + string.digits)
-        for _ in range(n)
-    )
 
 if __name__ == '__main__':
     xml_fn = sys.argv[1]
