@@ -28,6 +28,11 @@ but not `x^2 + y`.
 (Technically _regular_ expressions can't have unbounded-length backreferences
 but they're in PCRE.)
 
+Exact string search is fast, e.g. Apache Lucene, but inflexible.
+It can be used in a two-step search:
+First use exact search to exclude documents,
+then use slower methods like regex or
+structural search on the remaining set.
 
 ## Regular expressions
 
@@ -41,8 +46,10 @@ modify the number of processes used (default is number of cores)
 
 a tool like https://regex101.com/ can be helpful
 
-accelerating regex search with indexing:
-https://github.com/google/codesearch
+Google Code Search ([open sourced](https://github.com/google/codesearch))
+accelerates regex search with indexing, obviating the two-step search process
+mentioned above.
+
 
 ## Structural search
 

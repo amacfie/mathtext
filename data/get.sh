@@ -135,6 +135,5 @@ if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
 fi
 
 python3 ./post_proc.py
-
 du -sh ./documents
 
