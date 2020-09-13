@@ -30,9 +30,9 @@ but they're in PCRE.)
 
 Exact string search is fast, e.g. Apache Lucene, but inflexible.
 It can be used in a two-step search:
-First use exact search to exclude documents,
+First use exact search to get a superset of the desired results,
 then use slower methods like regex or
-structural search on the remaining set.
+structural search on that set.
 
 ## Regular expressions
 
