@@ -99,10 +99,6 @@ PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
 
 ## Training
 
-Pick the largest batch size you can fit on your GPU;
-some trial and error may be required.
-Bigger models take more VRAM.
-
 We are ready to train.
 Since the following is a long-running command you may want to run it in tmux:
 ```bash
@@ -110,6 +106,10 @@ PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batc
 ```
 
 This will keep running indefinitely. Stop it when you wish.
+
+Note: Pick the largest batch size you can fit on your GPU;
+some trial and error may be required.
+Bigger models take more VRAM.
 
 
 ## Sampling
