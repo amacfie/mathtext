@@ -44,6 +44,8 @@ You may still want to experiment with a GPU first.
 It's easiest to use Google's
 [deep learning image](https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning?_ga=2.41035681.2087968058.1597093079-761847582.1591646209).
 
+When you get to the _New Deep Learning VM deployment_ page, make the
+following selections.
 Under _Framework_, choose _Intel(R) optimized Base (with Intel(R) MKL and
 CUDA 10.0)_.
 TensorFlow 1.15 doesn't seem to work with CUDA 10.1.
