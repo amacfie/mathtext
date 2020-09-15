@@ -48,8 +48,8 @@ ag <pcre_regex> $(cat ${temp_file})
 ```
 where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
 and matches a relatively small superset of the desired documents.
-In a bash script you may want to use `set -e` since `csearch` will fail
-e.g. if the regex is invalid.
+(In a bash script you may want to use `set -e` since `csearch` will fail
+e.g. if the regex is invalid.)
 
 You'll likely want to use single quotes around regexes on the command line to
 disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
