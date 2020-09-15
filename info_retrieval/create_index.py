@@ -8,6 +8,7 @@ from pathlib import Path
 from whoosh.index import create_in
 from whoosh.fields import *
 from whoosh.analysis import NgramTokenizer
+import argparse
 import json
 import os
 import psutil
@@ -22,12 +23,23 @@ if ('MATHTEXT_NUM_WORKERS' in os.environ and
 else:
     NUM_WORKERS = psutil.cpu_count(logical=False)
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '--maxmem',
+    default=512,
+    type=int,
+    help=('Passed to Whoosh as limitmb parameter, see '
+        'https://whoosh.readthedocs.io/en/latest/batch.html#the-limitmb-parameter'
+    ),
+)
+args = parser.parse_args()
+
 schema = Schema(key=ID(stored=True), content=TEXT(
     analyzer=NgramTokenizer(minsize=3, maxsize=3),
     phrase=False,  # so it's trigram search not exact search
 ))
 ix = create_in('index', schema)
-writer = ix.writer(procs=NUM_WORKERS, limitmb=512, multisegment=True)
+writer = ix.writer(procs=NUM_WORKERS, limitmb=args.maxmem, multisegment=True)
 with open('../data/index.json') as f:
     index = json.load(f)
 for key in index:
