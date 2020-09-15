@@ -47,8 +47,9 @@ modify the number of processes used (default is number of cores)
 a tool like https://regex101.com/ can be helpful
 
 Google Code Search ([open sourced](https://github.com/google/codesearch))
-accelerates regex search with indexing, obviating the two-step search process
+uses an index to automatically accelerate regex search, obviating the two-step search process
 mentioned above.
+However, it doesn't support backreferences.
 
 
 ## Structural search
