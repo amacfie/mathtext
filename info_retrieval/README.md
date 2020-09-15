@@ -1,9 +1,8 @@
-Here we discuss some ways to search a LaTeX corpus including the provided
-`./regex.py` script.
+Here we discuss some ways to search a LaTeX corpus.
 
 see also:
-* https://search.mathweb.org/
 * [D. Pineau - Math-aware search engines](https://www.groundai.com/project/math-aware-search-engines-physics-applications-and-overview/1)
+* https://search.mathweb.org/
 * https://mathdeck.cs.rit.edu/
 * https://www.springer.com/societies+&+publishing+partners/society+&+partner+zone?SGWID=0-173202-6-951123-0
 
@@ -18,7 +17,6 @@ applications:
 
 four levels:
 * exact string search
-  * may allow e.g. wildcards but not full regular expression syntax
 * regular expressions
 * structural search
 * semantic analysis
@@ -29,31 +27,41 @@ but not `x^2 + y`.
 (Technically _regular_ expressions can't have unbounded-length backreferences
 but they're in the PCRE specification.)
 
-Exact string search, e.g. with Apache Lucene, is fast but inflexible.
-It can be used in a two-step search:
-First use exact search to get a relatively small superset of the desired
-results, then use slower methods like regex or structural search on that set.
+## Exact string search
+
+I.e. query syntax that may allow e.g. wildcards but not full regular expressions
+
+Apache Lucene is the standard for big data
 
 ## Regular expressions
 
-`./regex.py <regex>`
-
-you'll likely want to use single quotes around the regex to disable shell
-replacements, e.g. `./regex.py '\\sqrt{[a-z]}'`
-
-set `MATHTEXT_NUM_WORKERS`, e.g. run `export MATHTEXT_NUM_WORKERS=2`, to
-modify the number of processes used (default is number of cores)
-
-a tool like https://regex101.com/ can be helpful
-
 Google Code Search ([open sourced](https://github.com/google/codesearch))
-uses an index to automatically accelerate regex search, obviating the two-step
-search process mentioned above.
+uses a trigram index to automatically accelerate regex search.
 It works well, although it doesn't support backreferences
 (and neither do Zoekt or Sourcegraph).
+However, it can be used as the first step in a two-step search along with PCRE
+search such as [Ag](https://github.com/ggreer/the_silver_searcher):
+```bash
+temp_file=$(mktemp)
+csearch -l <re2_regex> > $temp_file
+ag <pcre_regex> $(cat ${temp_file})
+```
+where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
+and matches a relatively small superset of the desired documents.
+In a bash script you may want to use `set -e` since `csearch` will fail
+e.g. if the regex is invalid.
+
+You'll likely want to use single quotes around regexes on the command line to
+disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
+
+A tool like <https://regex101.com/> can be helpful
 
 
 ## Structural search
 
 [Comby](https://comby.dev/docs/overview) supports LaTeX
+
+If structural search is slow we may want to do a two-step search as above,
+i.e. only using structural search to refine results returned by a fast but
+overly-inclusive search.
 
