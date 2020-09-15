@@ -12,6 +12,7 @@ import argparse
 import json
 import os
 import psutil
+import tqdm
 
 if not os.path.exists('index'):
     os.makedirs('index')
@@ -41,8 +42,9 @@ schema = Schema(key=ID(stored=True), content=TEXT(
 ix = create_in('index', schema)
 writer = ix.writer(procs=NUM_WORKERS, limitmb=args.maxmem, multisegment=True)
 with open('../data/index.json') as f:
-    index = json.load(f)
-for key in index:
+    docs = json.load(f)
+print('Adding documents...')
+for key in tqdm.tqdm(docs):
     text = Path('../data/documents/' + key).read_text()
     writer.add_document(key=key, content=text)
 print('Writing index (slow)...')
