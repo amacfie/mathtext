@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 '''
+slow, huge storage requirement
 apparently Lucene handles big data better
 '''
 
