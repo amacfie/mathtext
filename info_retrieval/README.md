@@ -53,8 +53,6 @@ e.g. if the regex is invalid.)
 
 You'll likely want to use single quotes around regexes on the command line to
 disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
-(or if running commands from Python use raw string literals and
-[`shlex.quote`](https://docs.python.org/3/library/shlex.html#shlex.quote))
 
 A tool like <https://regex101.com/> can be helpful
 
