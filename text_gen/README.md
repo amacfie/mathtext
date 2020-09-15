@@ -44,6 +44,8 @@ You may still want to experiment with a GPU first.
 It's easiest to use Google's
 [deep learning image](https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning?_ga=2.41035681.2087968058.1597093079-761847582.1591646209).
 
+When you get to the _New Deep Learning VM deployment_ page, make the
+following selections.
 Under _Framework_, choose _Intel(R) optimized Base (with Intel(R) MKL and
 CUDA 10.0)_.
 TensorFlow 1.15 doesn't seem to work with CUDA 10.1.
@@ -99,10 +101,6 @@ PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
 
 ## Training
 
-Pick the largest batch size you can fit on your GPU;
-some trial and error may be required.
-Bigger models take more VRAM.
-
 We are ready to train.
 Since the following is a long-running command you may want to run it in tmux:
 ```bash
@@ -110,6 +108,10 @@ PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batc
 ```
 
 This will keep running indefinitely. Stop it when you wish.
+
+Note: Pick the largest batch size you can fit on your GPU;
+some trial and error may be required.
+Bigger models take more VRAM.
 
 
 ## Sampling
