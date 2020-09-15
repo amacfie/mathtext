@@ -18,6 +18,7 @@ applications:
 
 four levels:
 * exact string search
+  * may allow e.g. wildcards but not full regular expression syntax
 * regular expressions
 * structural search
 * semantic analysis
@@ -26,13 +27,12 @@ Regular expressions and structural search allow for backreferences which let us
 search for, say, `something^2 + something`, matching `x^2 + x` and `y^2 + y`
 but not `x^2 + y`.
 (Technically _regular_ expressions can't have unbounded-length backreferences
-but they're in PCRE.)
+but they're in the PCRE specification.)
 
-Exact string search is fast, e.g. Apache Lucene, but inflexible.
+Exact string search, e.g. with Apache Lucene, is fast but inflexible.
 It can be used in a two-step search:
-First use exact search to get a superset of the desired results,
-then use slower methods like regex or
-structural search on that set.
+First use exact search to get a relatively small superset of the desired
+results, then use slower methods like regex or structural search on that set.
 
 ## Regular expressions
 
@@ -41,15 +41,16 @@ structural search on that set.
 you'll likely want to use single quotes around the regex to disable shell
 replacements, e.g. `./regex.py '\\sqrt{[a-z]}'`
 
-set `MATHTEXT_NUM_WORKERS`, e.g. run `export MATHTEXT_NUM_WORKERS=...`, to
+set `MATHTEXT_NUM_WORKERS`, e.g. run `export MATHTEXT_NUM_WORKERS=2`, to
 modify the number of processes used (default is number of cores)
 
 a tool like https://regex101.com/ can be helpful
 
 Google Code Search ([open sourced](https://github.com/google/codesearch))
-uses an index to automatically accelerate regex search, obviating the two-step search process
-mentioned above.
-However, it doesn't support backreferences.
+uses an index to automatically accelerate regex search, obviating the two-step
+search process mentioned above.
+It works well, although it doesn't support backreferences
+(and neither do Zoekt or Sourcegraph).
 
 
 ## Structural search
