@@ -2,6 +2,7 @@ data/documents
 data/index.json
 data/*.txt
 archive
+info_retrieval/index
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
