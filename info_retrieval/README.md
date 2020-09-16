@@ -67,7 +67,8 @@ A tool like <https://regex101.com/> can be helpful
 
 Zoekt and Sourcegraph are alternatives to Google Code Search but don't support
 backrefrences either.
-Zoekt is slower and uses a much larger index but supports multiline search.
+Zoekt is notably slower and uses a much larger index but supports multiline
+search.
 
 ## Structural search
 
