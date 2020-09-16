@@ -40,16 +40,21 @@ uses a trigram index to automatically accelerate regex search.
 It works well, although it doesn't support backreferences
 (and neither do Zoekt or Sourcegraph).
 However, it can be used as the first step in a two-step search along with PCRE
-search such as [Ag](https://github.com/ggreer/the_silver_searcher):
+search such as ripgrep (on Ubuntu install from
+[here](https://github.com/BurntSushi/ripgrep/releases) to get
+[PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support):
 ```bash
 temp_file=$(mktemp)
-csearch -l <re2_regex> > $temp_file
-ag <pcre_regex> $(cat ${temp_file})
+csearch -l <re2_regex> > ${temp_file}
+if [[ -s ${temp_file} ]]; then
+  xargs -d '\n' -a ${temp_file} rg --multiline --pcre2 <pcre2_regex>
+fi
+rm ${temp_file}
 ```
 where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
 and matches a relatively small superset of the desired documents.
-(In a bash script you may want to use `set -e` since `csearch` will fail
-e.g. if the regex is invalid.)
+Note that `csearch` or `rg` can fail e.g. if their argument is an invalid
+regex.
 
 You'll likely want to use single quotes around regexes on the command line to
 disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
