@@ -37,6 +37,7 @@ Apache Lucene is the standard for big data
 
 <details>
   <summary>Installing Zoekt on Ubuntu</summary>
+
   ```bash
   sudo apt install golang
   export PATH=$PATH:/usr/local/go/bin
