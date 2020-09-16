@@ -35,29 +35,51 @@ Apache Lucene is the standard for big data
 
 ## Regular expressions
 
+<details>
+  <summary>Installing Zoekt on Ubuntu</summary>
+  ```bash
+  sudo apt install golang
+  export PATH=$PATH:/usr/local/go/bin
+  export PATH=$PATH:$HOME/go/bin
+  go get github.com/google/zoekt/...
+  go install github.com/google/zoekt/cmd/zoekt-index
+  go install github.com/google/zoekt/cmd/zoekt
+  ```
+</details>
+
 Google Code Search ([open sourced](https://github.com/google/codesearch))
 uses a trigram index to automatically accelerate regex search.
-It works well, although it doesn't support backreferences
-(and neither do Zoekt or Sourcegraph).
-However, it can be used as the first step in a two-step search along with PCRE
-search such as ripgrep (on Ubuntu install from
+Zoekt is very similar but more actively maintained and has improvements such
+as multiline search.
+Create a Zoekt index as follows:
+```bash
+cd data/
+zoekt-index documents
+```
+Zoekt does not support backreferences (neither does Google Code Search);
+however, it can be used as the first step in a two-step search along with
+PCRE search such as ripgrep (on Ubuntu install from
 [here](https://github.com/BurntSushi/ripgrep/releases) to get
 [PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support):
 ```bash
+cd documents/
 temp_file=$(mktemp)
-csearch -l <re2_regex> > ${temp_file}
+zoekt -index_dir ../ -l <query> > ${temp_file}
 if [[ -s ${temp_file} ]]; then
   xargs -d '\n' -a ${temp_file} rg --multiline --pcre2 <pcre2_regex>
 fi
 rm ${temp_file}
 ```
-where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
-and matches a relatively small superset of the desired documents.
-Note that `csearch` or `rg` can fail e.g. if their argument is an invalid
+where `<query>` is some
+[Zoekt](https://github.com/google/zoekt/blob/master/web/templates.go)
+[query](https://cs.bazel.build/)
+(regex search follows [golang regex syntax](https://golang.org/pkg/regexp/))
+that matches a relatively small superset of the desired documents.
+Note that `zoekt` or `rg` can fail e.g. if their argument is an invalid
 regex.
 
 You'll likely want to use single quotes around regexes on the command line to
-disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
+disable shell replacements, e.g. `zoekt '\\sqrt{[a-z]}'`
 
 A tool like <https://regex101.com/> can be helpful
 
@@ -67,6 +89,6 @@ A tool like <https://regex101.com/> can be helpful
 [Comby](https://comby.dev/docs/overview) supports LaTeX
 
 If structural search is slow we may want to do a two-step search as above,
-i.e. only using structural search to refine results returned by a fast but
-overly-inclusive search.
+i.e. using structural search to refine results returned by a fast but
+somewhat overly-inclusive search.
 
