@@ -62,7 +62,7 @@ for result in results:
         else:
             arxiv_code = value['id'][:-4]
         links.add('http://google.com/search?q={}'.format(urllib.parse.quote(
-            'arXiv ' + arxiv_code
+            'site:arxiv.org ' + arxiv_code
         )))
     elif value['source'] == 'Stack Exchange':
         links.add(value['id'])
