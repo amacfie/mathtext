@@ -52,8 +52,8 @@ TensorFlow 1.15 doesn't seem to work with CUDA 10.1.
 Select _Install NVIDIA GPU driver automatically on first startup_.
 Finding the amount of RAM required takes experimentation. Watch `top`. Encoding
 and training use the same amount.
-Currently, the [T4 GPU](https://cloud.google.com/compute/gpus-pricing) is the
-cheapest 16GB option.
+Currently, the [Tesla T4](https://cloud.google.com/compute/gpus-pricing) is the
+cheapest 16GB GPU.
 
 ## Moving data to VM
 
@@ -62,7 +62,8 @@ Unless `data/` is already on the VM, go to `data/` and run
 # https://superuser.com/a/1337788
 tar -c ./documents | pv -s $(du -sb ./documents | awk '{print $1}') > documents.tar
 ```
-Upload `documents.tar` to Google Cloud Storage:
+[Upload](https://cloud.google.com/storage/docs/gsutil_install)
+`documents.tar` to Google Cloud Storage:
 ```bash
 gsutil cp ./documents.tar gs://<your bucket>
 ```
