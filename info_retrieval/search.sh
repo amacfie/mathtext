@@ -3,24 +3,40 @@
 # usage:
 # Q1='first query' Q2='second query' ./search.sh
 # Q1 goes to csearch, Q2 goes to grep on results from csearch
+# set Q1='' to disable csearch
 
 set -e
 
-# to do prompts, see https://stackoverflow.com/a/6703730
-
-temp_file=$(mktemp)
-csearch -l "$Q1" > ${temp_file}
-results_file=$(mktemp)
-if [[ -s ${temp_file} ]]; then
-  # https://unix.stackexchange.com/a/494689
-  xargs -d '\n' -a ${temp_file} rg -l --multiline --pcre2 "$Q2" > $results_file
+# https://stackoverflow.com/a/6703730
+if [[ -z "$Q1" ]]; then
+  read -p "csearch query (Q1): " Q1
 else
-  echo -n "" > $results_file
+  read -e -i "$Q1" -p "csearch query (Q1): " Q1
+fi
+if [[ -z "$Q2" ]]; then
+  read -p "grep query (Q2): " Q2
+else
+  read -e -i "$Q2" -p "grep query (Q2): " Q2
+fi
+
+# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
+dirpath="$(dirname "$(readlink -f "$0")")"
+results_file=$(mktemp)
+temp_file=$(mktemp)
+if [[ -z "$Q1" ]]; then
+  rg -l --multiline --pcre2 "$Q2" "${dirpath}/../data/documents" > $results_file
+else
+  csearch -l "$Q1" > ${temp_file}
+  if [[ -s ${temp_file} ]]; then
+    # https://unix.stackexchange.com/a/494689
+    xargs -d '\n' -a ${temp_file} rg -l --multiline --pcre2 "$Q2" > $results_file
+  else
+    echo -n "" > $results_file
+  fi
 fi
 
 {
-# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
-python3 - "$(dirname "$(readlink -f "$0")")" "${results_file}" << EOF
+python3 - "${dirpath}" "${results_file}" << EOF
 import json
 import pathlib
 import sys
@@ -60,4 +76,5 @@ EOF
 if [[ -s ${temp_file} ]]; then
   $EDITOR ${temp_file}
 fi
+rm ${temp_file} ${results_file}
 
