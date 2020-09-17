@@ -83,10 +83,14 @@ rm documents.tar
 
 You can use `117M` or any of the other [available pretrained
 models](https://github.com/openai/gpt-2/issues/209#issuecomment-554246634).
+```bash
+export MODEL_CODE=117M
+```
 We use `farrell236`'s fork of
 https://github.com/nshepperd/gpt-2
 due to [this issue](https://github.com/nshepperd/gpt-2/issues/33).
-
+The Python scripts in this repository accept the `--help` flag if you want
+to learn more about their options.
 ```bash
 git clone https://github.com/farrell236/gpt-2.git
 cd gpt-2
@@ -95,7 +99,7 @@ pip install tensorflow-gpu==1.15
 pip install -r requirements.txt
 echo "GPU is available:"
 python -c 'import tensorflow as tf; tf.test.is_gpu_available()'
-python download_model.py 117M
+python download_model.py $MODEL_CODE
 PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
 ```
 
@@ -104,7 +108,7 @@ PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
 We are ready to train.
 Since the following is a long-running command you may want to run it in tmux:
 ```bash
-PYTHONPATH=src python train.py  --model_name 117M --dataset documents.npz --batch_size 3 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128 --val_every 100
+PYTHONPATH=src python train.py  --model_name $MODEL_CODE --dataset documents.npz --batch_size 3 --save_every 50 --sample_every 20 --sample_num 1 --sample_length 128 --val_every 100
 ```
 
 This will keep running indefinitely. Stop it when you wish.
@@ -116,20 +120,20 @@ Bigger models take more VRAM.
 
 ## Sampling
 
-The folders in `checkpoint/` contain the trained model parameters.
-Assuming we use the model from step `9000` of our first run, do
+The folder `checkpoint/` contains our trained model parameters.
+Assuming we use the parameters from step `9000`, we name this trained model
+by running
 ```bash
 mkdir models/mymodel
 cp -t models/mymodel checkpoint/run1/model-9000.* checkpoint/run1/checkpoint
-cp -t models/mymodel models/117M/encoder.json models/117M/hparams.json models/117M/vocab.bpe
+cp -t models/mymodel models/$MODEL_CODE/encoder.json models/$MODEL_CODE/hparams.json models/$MODEL_CODE/vocab.bpe
 ```
+Note: this seems to only work if you use the latest checkpoint.
 
 We can now generate samples
 ```bash
 python ./src/interactive_conditional_samples.py --model_name mymodel
 ```
-Run `python src/interactive_conditional_samples.py --help`
-to read about extra parameters for this script.
 
 ## TPU usage
 
