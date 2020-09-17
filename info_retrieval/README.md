@@ -35,38 +35,47 @@ Apache Lucene is the standard for big data
 
 ## Regular expressions
 
+<details>
+  <summary>Installing Google Code Search on Ubuntu 20 and indexing</summary>
+
+  ```bash
+  sudo apt install golang
+  export PATH=$PATH:/usr/local/go/bin
+  export PATH=$PATH:$HOME/go/bin
+  go get github.com/google/codesearch/cmd/...
+  go install github.com/codesearch/cmd/cindex
+  go install github.com/codesearch/cmd/csearch
+  cindex ../data/documents
+  ```
+</details>
+
 Google Code Search ([open sourced](https://github.com/google/codesearch))
 uses a trigram index to automatically accelerate regex search.
-It works well, although it doesn't support backreferences.
-However, it can be used as the first step in a two-step search along with PCRE
+It doesn't support backreferences;
+however, it can be used as the first step in a two-step search along with PCRE
 search such as ripgrep (on Ubuntu install from
 [here](https://github.com/BurntSushi/ripgrep/releases) to get
-[PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support):
+[PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support) e.g.
 ```bash
 temp_file=$(mktemp)
 csearch -l <re2_regex> > ${temp_file}
-if [[ -s ${temp_file} ]]; then
-  xargs -d '\n' -a ${temp_file} rg --multiline --pcre2 <pcre2_regex>
-fi
-rm ${temp_file}
+rg --multiline --pcre2 <pcre2_regex> $(cat ${temp_file})
 ```
 where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
-and matches a relatively small superset of the desired documents.
-Note that `csearch` or `rg` can fail e.g. if their argument is an invalid
-regex.
-[Ag](https://github.com/ggreer/the_silver_searcher) is an alternative to
-ripgrep which doesn't require `--multiline --pcre2`.
+and ideally matches some small superset of the desired documents.
+([Ag](https://github.com/ggreer/the_silver_searcher) is an alternative to
+ripgrep which doesn't require `--multiline --pcre2`.)
 
 _Warning:_ Google Code Search does not support searching across multiple
 lines and it ignores long lines.
 
 You'll likely want to use single quotes around regexes on the command line to
-disable shell replacements, e.g. `zoekt '\\sqrt{[a-z]}'`
+disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
 
 A tool like <https://regex101.com/> can be helpful
 
 Zoekt and Sourcegraph are alternatives to Google Code Search but don't support
-backrefrences either.
+backreferences either.
 Zoekt is notably slower and uses a much larger index but supports multiline
 search.
 
