@@ -62,7 +62,8 @@ Unless `data/` is already on the VM, go to `data/` and run
 # https://superuser.com/a/1337788
 tar -c ./documents | pv -s $(du -sb ./documents | awk '{print $1}') > documents.tar
 ```
-Upload `documents.tar` to Google Cloud Storage:
+[Upload](https://cloud.google.com/storage/docs/gsutil_install)
+`documents.tar` to Google Cloud Storage:
 ```bash
 gsutil cp ./documents.tar gs://<your bucket>
 ```
