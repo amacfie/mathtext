@@ -8,16 +8,8 @@
 set -e
 
 # https://stackoverflow.com/a/6703730
-if [[ -z "$Q1" ]]; then
-  read -p "csearch query (Q1): " Q1
-else
-  read -e -i "$Q1" -p "csearch query (Q1): " Q1
-fi
-if [[ -z "$Q2" ]]; then
-  read -p "grep query (Q2): " Q2
-else
-  read -e -i "$Q2" -p "grep query (Q2): " Q2
-fi
+read -e -i "$Q1" -p "csearch query (Q1): " Q1
+read -e -i "$Q2" -p "grep query (Q2): " Q2
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
 dirpath="$(dirname "$(readlink -f "$0")")"

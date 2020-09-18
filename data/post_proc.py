@@ -14,8 +14,11 @@ def proc(key):
     try:
         text = Path(fn).read_text()
         text = unidecode(text)
-        text = re.sub(r'\s+\n\s*|\s*\n\s+', '\n', text)
-        text = re.sub(r' {2,}', ' ', text)
+
+        # clean whitespace
+        #text = re.sub(r'\s+\n\s*|\s*\n\s+', '\n', text)
+        #text = re.sub(r' {2,}', ' ', text)
+
         text = text.strip()
         with open(fn, 'w') as f:
             f.write(text)
