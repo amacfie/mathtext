@@ -51,22 +51,24 @@ if ((MATHTEXT_NUM_TARS > 0)); then
 fi
 
 if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
-  wget https://archive.org/download/stackexchange/math.stackexchange.com.7z
-  7z x math.stackexchange.com.7z -omath.stackexchange.com
-  python3 proc_qs.py math.stackexchange.com/Posts.xml math.stackexchange.com
-  wget https://archive.org/download/stackexchange/cstheory.stackexchange.com.7z
-  7z x cstheory.stackexchange.com.7z -ocstheory.stackexchange.com
-  python3 proc_qs.py cstheory.stackexchange.com/Posts.xml cstheory.stackexchange.com
-  wget https://archive.org/download/stackexchange/mathoverflow.net.7z
-  7z x mathoverflow.net.7z -omathoverflow.net
-  python3 proc_qs.py mathoverflow.net/Posts.xml mathoverflow.net
-
-  rm -rf ./mathoverflow* ./cstheory* ./math.*
+  function mathtext_se {
+    wget https://archive.org/download/stackexchange/${1}.7z
+    7z x ${1}.7z -o${1}
+    # https://metacpan.org/pod/distribution/XML-Twig/tools/xml_split/xml_split
+    cd ${1}; xml_split -s 1Gb < Posts.xml; cd ../
+    python3 proc_qs.py ${1}
+    rm -rf ./${1}*
+  }
+  # JFT
+  #mathtext_se math.stackexchange.com
+  #mathtext_se mathoverflow.net
+  mathtext_se cstheory.stackexchange.com
 fi
 
 if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
   mkdir texstuff
   cd texstuff
+
   git clone --depth=1 https://github.com/OpenLogicProject/OpenLogic.git
   python3 ../proc_tex_proj.py OpenLogic https://github.com/OpenLogicProject/OpenLogic
   git clone --depth=1 https://github.com/Ben-McKay/concrete-algebra.git

@@ -16,8 +16,9 @@ def proc(key):
         text = unidecode(text)
 
         # clean whitespace
-        #text = re.sub(r'\s+\n\s*|\s*\n\s+', '\n', text)
-        #text = re.sub(r' {2,}', ' ', text)
+        text = re.sub(r'\s+\n\s*|\s*\n\s+', '\n', text)
+        text = re.sub(r'\t', ' ', text)
+        text = re.sub(r' {2,}', ' ', text)
 
         text = text.strip()
         with open(fn, 'w') as f:

@@ -7,9 +7,8 @@
 
 set -e
 
-# https://stackoverflow.com/a/6703730
-read -e -i "$Q1" -p "csearch query (Q1): " Q1
-read -e -i "$Q2" -p "grep query (Q2): " Q2
+read -r -e -i "$Q1" -p "csearch query (Q1): " Q1
+read -r -e -i "$Q2" -p "grep query (Q2): " Q2
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
 dirpath="$(dirname "$(readlink -f "$0")")"
@@ -57,7 +56,7 @@ for result in results:
             'site:arxiv.org ' + arxiv_code
         )))
     elif value['source'] == 'Stack Exchange':
-        links.add(value['id'])
+        links.add('https://' + value['id'])
     else:
         links.add(value['source'])
 print('\n'.join(links))
