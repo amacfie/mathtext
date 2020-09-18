@@ -59,9 +59,8 @@ if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
     python3 proc_qs.py ${1}
     rm -rf ./${1}*
   }
-  # JFT
-  #mathtext_se math.stackexchange.com
-  #mathtext_se mathoverflow.net
+  mathtext_se math.stackexchange.com
+  mathtext_se mathoverflow.net
   mathtext_se cstheory.stackexchange.com
 fi
 
