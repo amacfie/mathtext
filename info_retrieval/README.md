@@ -1,12 +1,12 @@
 Here we discuss some ways to search a LaTeX corpus.
 
-see also:
+See also:
 * [D. Pineau - Math-aware search engines](https://www.groundai.com/project/math-aware-search-engines-physics-applications-and-overview/1)
 * https://search.mathweb.org/
 * https://mathdeck.cs.rit.edu/
 * https://www.springer.com/societies+&+publishing+partners/society+&+partner+zone?SGWID=0-173202-6-951123-0
 
-applications:
+Applications:
 * literature review, except symbol-based rather than English-based (which
   Google does based on PDFs), e.g. seeing what has been done with a given
   expression
@@ -15,7 +15,7 @@ applications:
   * generating ideas/inspiration
 * subscribe to alerts when a new paper matches a query
 
-four levels:
+Four levels:
 * exact string search
 * regular expressions
 * structural search
