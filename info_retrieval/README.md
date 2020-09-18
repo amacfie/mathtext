@@ -58,7 +58,10 @@ search such as ripgrep (on Ubuntu install from
 [PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support) e.g.
 ```bash
 temp_file=$(mktemp)
+# find documents that match <re2_regex> according to Google Code Search
 csearch -l <re2_regex> > ${temp_file}
+# among those documents, find the ones that match <pcre2_regex> according to
+# ripgrep
 rg --multiline --pcre2 <pcre2_regex> $(cat ${temp_file})
 ```
 where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)

@@ -10,7 +10,7 @@ Tested on _Ubuntu 18_ and _20_
 The script `./install.sh` installs dependencies.
 It is recommended to use a Python virtual environment.
 
-_Warning_: Downloading arXiv content will result in charges to your AWS
+_Warning:_ Downloading arXiv content will result in charges to your AWS
 account and unpacking many arXiv tar files takes a very long time.
 Ensure you have sufficient storage space or there will be errors.
 

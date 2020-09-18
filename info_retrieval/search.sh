@@ -7,8 +7,8 @@
 
 set -e
 
-read -r -e -i "$Q1" -p "csearch query (Q1): " Q1
 read -r -e -i "$Q2" -p "grep query (Q2): " Q2
+read -r -e -i "$Q1" -p "csearch query (Q1): " Q1
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
 dirpath="$(dirname "$(readlink -f "$0")")"
