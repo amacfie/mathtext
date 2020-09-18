@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # usage:
-# Q1='first query' Q2='second query' ./search.sh
-# Q1 goes to csearch, Q2 goes to grep on results from csearch
-# set Q1='' to disable csearch
+# MATHTEXT_Q1='first query' MATHTEXT_Q2='second query' ./search.sh
+# MATHTEXT_Q1 goes to csearch, MATHTEXT_Q2 goes to grep on results from csearch
+# set MATHTEXT_Q1='' to disable csearch
 
 set -e
 
-read -r -e -i "$Q2" -p "grep query (Q2): " Q2
-read -r -e -i "$Q1" -p "csearch query (Q1): " Q1
+read -r -e -i "$MATHTEXT_Q2" -p "grep query (MATHTEXT_Q2): " MATHTEXT_Q2
+read -r -e -i "$MATHTEXT_Q1" -p "csearch query (MATHTEXT_Q1): " MATHTEXT_Q1
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
 dirpath="$(dirname "$(readlink -f "$0")")"
 results_file=$(mktemp)
 temp_file=$(mktemp)
-if [[ -z "$Q1" ]]; then
-  rg -l --multiline --pcre2 "$Q2" "${dirpath}/../data/documents" > $results_file
+if [[ -z "$MATHTEXT_Q1" ]]; then
+  rg -l --multiline --pcre2 "$MATHTEXT_Q2" "${dirpath}/../data/documents" > $results_file
 else
-  csearch -l "$Q1" > ${temp_file}
+  csearch -l "$MATHTEXT_Q1" > ${temp_file}
   if [[ -s ${temp_file} ]]; then
     # https://unix.stackexchange.com/a/494689
-    xargs -d '\n' -a ${temp_file} rg -l --multiline --pcre2 "$Q2" > $results_file
+    xargs -d '\n' -a ${temp_file} rg -l --multiline --pcre2 "$MATHTEXT_Q2" > $results_file
   else
     echo -n "" > $results_file
   fi

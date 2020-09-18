@@ -55,7 +55,7 @@ if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
     wget https://archive.org/download/stackexchange/${1}.7z
     7z x ${1}.7z -o${1}
     # https://metacpan.org/pod/distribution/XML-Twig/tools/xml_split/xml_split
-    cd ${1}; xml_split -s 1Gb < Posts.xml; cd ../
+    cd ${1}; xml_split -s 500Mb < Posts.xml; cd ../
     python3 proc_qs.py ${1}
     rm -rf ./${1}*
   }
