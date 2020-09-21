@@ -2,8 +2,5 @@
 * [**Searching for mathematical expressions**](info_retrieval)
 * [**Text extrapolation: Randomly generating "proofs"**](text_gen)
 
-original motivation: enter math problem then automatically analyze corpus to
-generate "solutions" which may at least give useful ideas/inspiration.
-
 [![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com/amacfie/mathtext/)
 
