@@ -18,7 +18,9 @@ def proc(key):
         # clean whitespace
         # https://en.wikibooks.org/wiki/LaTeX/Basics#Spaces
         text = re.sub(r'\t', ' ', text)
-        text = re.sub(r'\s+\n\n\s*|\s*\n\n\s+', '\n\n', text)
+        text = re.sub(
+            r'\s+\n\s*\n\s*|\s*\n\s+\n\s*|\s*\n\s*\n\s+', '\n\n', text
+        )
         text = re.sub(r' +\n *| *\n +', '\n', text)
         text = re.sub(r' {2,}', ' ', text)
 
