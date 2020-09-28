@@ -77,9 +77,9 @@ lines and it ignores long lines by default.
 
   We can search across lines by stripping newlines from the documents and
   telling `cindex` not to skip long lines. The script used below converts all
-  sequences of whitespace to single spaces. If searching specifically for
-  newlines is important, it would be possible to encode newlines as e.g. double
-  spaces or tabs.
+  sequences of whitespace to single spaces.
+  <!--If searching specifically for newlines is important, it would be possible
+  to encode newlines as e.g. double spaces or tabs.-->
   ```bash
   cd data/
   cp -r documents documents_no_newline
