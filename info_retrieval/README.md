@@ -49,7 +49,8 @@ Apache Lucene is the standard for big data
   ```
 </details>
 
-Google Code Search ([open sourced](https://github.com/google/codesearch))
+Google Code Search (open sourced [here](https://github.com/google/codesearch),
+but we'll use [this fork](https://github.com/junkblocker/codesearch/))
 uses a trigram index to automatically accelerate regex search.
 It doesn't support backreferences;
 however, it can be used as the first step in a two-step search along with PCRE
@@ -69,8 +70,15 @@ and ideally matches some small superset of the desired documents.
 ([Ag](https://github.com/ggreer/the_silver_searcher) is an alternative to
 ripgrep which doesn't require `--multiline --pcre2`.)
 
+_Warning:_ Google Code Search can only deal with indexes up to 4GB which
+translates to about 20GB of data. (For more data create multiple disjoint
+indexes, search separately, and merge search results.)
+
+_Warning:_ Running `cindex` (but not `csearch`) may have high RAM requirements
+(even in incremental indexing).
+
 _Warning:_ Google Code Search does not support searching across multiple
-lines and it ignores long lines by default.
+lines and it ignores long lines by default. (But see below.)
 
 <details>
   <summary>Multiline search</summary>
