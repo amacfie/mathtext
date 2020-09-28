@@ -1,4 +1,5 @@
 data/documents
+data/documents_no_newline
 data/index.json
 data/*.txt
 **/*.zoekt

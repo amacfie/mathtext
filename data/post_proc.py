@@ -21,6 +21,7 @@ def proc(key):
         text = re.sub(
             r'\s+\n\s*\n\s*|\s*\n\s+\n\s*|\s*\n\s*\n\s+', '\n\n', text
         )
+        # doesn't get rid of single newlines just cleans spaces around them
         text = re.sub(r' +\n *| *\n +', '\n', text)
         text = re.sub(r' {2,}', ' ', text)
 

@@ -42,9 +42,9 @@ Apache Lucene is the standard for big data
   sudo apt install golang
   export PATH=$PATH:/usr/local/go/bin
   export PATH=$PATH:$HOME/go/bin
-  go get github.com/google/codesearch/cmd/...
-  go install github.com/codesearch/cmd/cindex
-  go install github.com/codesearch/cmd/csearch
+  go get github.com/junkblocker/codesearch/cmd/...
+  go install github.com/junkblocker/cmd/cindex
+  go install github.com/junkblocker/cmd/csearch
   cindex ../data/documents
   ```
 </details>
@@ -70,7 +70,23 @@ and ideally matches some small superset of the desired documents.
 ripgrep which doesn't require `--multiline --pcre2`.)
 
 _Warning:_ Google Code Search does not support searching across multiple
-lines and it ignores long lines.
+lines and it ignores long lines by default.
+
+<details>
+  <summary>Multiline search</summary>
+
+  We can search across lines by stripping newlines from the documents and
+  telling `cindex` not to skip long lines. The script used below converts all
+  sequences of whitespace to single spaces. If searching specifically for
+  newlines is important, it would be possible to encode newlines as e.g. double
+  spaces or tabs.
+  ```bash
+  cd data/
+  cp -r documents documents_no_newline
+  python3 ../info_retrieval/multiline.py
+  cindex -reset -maxlinelen 1000000 ./documents_no_newline
+  ```
+</details>
 
 You'll likely want to use single quotes around regexes on the command line to
 disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
