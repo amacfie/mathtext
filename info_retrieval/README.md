@@ -75,7 +75,8 @@ translates to about 20GB of data. (For more data create multiple disjoint
 indexes, search separately, and merge search results.)
 
 _Warning:_ Running `cindex` (but not `csearch`) may have high RAM requirements
-(even in incremental indexing).
+(even in incremental indexing). Multiple indexes as described above is one
+workaround; if indexes are max 1GB then RAM usage should be 2-4GB.
 
 _Warning:_ Google Code Search does not support searching across multiple
 lines and it ignores long lines by default. (But see below.)
