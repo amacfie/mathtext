@@ -62,6 +62,9 @@ if [[ -z "$MATHTEXT_SKIP_SE" ]]; then
   mathtext_se math.stackexchange.com
   mathtext_se mathoverflow.net
   mathtext_se cstheory.stackexchange.com
+  mathtext_se stats.stackexchange.com
+  mathtext_se quant.stackexchange.com
+  mathtext_se cs.stackexchange.com
 fi
 
 if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
