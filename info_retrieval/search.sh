@@ -7,8 +7,17 @@
 
 set -e
 
+[[ -f  ~/.mathtext_q1_history ]] || touch ~/.mathtext_q1_history
+[[ -f  ~/.mathtext_q2_history ]] || touch ~/.mathtext_q2_history
+history -r ~/.mathtext_q1_history
 read -r -e -i "$MATHTEXT_Q1" -p "csearch query (MATHTEXT_Q1): " MATHTEXT_Q1
+history -s "$MATHTEXT_Q1"
+history -w ~/.mathtext_q1_history
+history -c
+history -r ~/.mathtext_q2_history
 read -r -e -i "$MATHTEXT_Q2" -p "ag query (MATHTEXT_Q2): " MATHTEXT_Q2
+history -s "$MATHTEXT_Q2"
+history -w ~/.mathtext_q2_history
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
 dirpath="$(dirname "$(readlink -f "$0")")"
