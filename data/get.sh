@@ -72,29 +72,30 @@ if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
   cd texstuff
 
   git clone --depth=1 https://github.com/OpenLogicProject/OpenLogic.git
-  python3 ../proc_tex_proj.py OpenLogic https://github.com/OpenLogicProject/OpenLogic
+  python3 ../proc_tex_proj.py OpenLogic https://github.com/OpenLogicProject/OpenLogic/blob/master
   git clone --depth=1 https://github.com/Ben-McKay/concrete-algebra.git
-  python3 ../proc_tex_proj.py concrete-algebra https://github.com/Ben-McKay/concrete-algebra
+  python3 ../proc_tex_proj.py concrete-algebra https://github.com/Ben-McKay/concrete-algebra/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/APEXCalculusV4.git
-  python3 ../proc_tex_proj.py APEXCalculusV4 https://github.com/ULeth-Math-CS/APEXCalculusV4
+  python3 ../proc_tex_proj.py APEXCalculusV4 https://github.com/ULeth-Math-CS/APEXCalculusV4/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/Math1410-Text.git
-  python3 ../proc_tex_proj.py Math1410-Text https://github.com/ULeth-Math-CS/Math1410-Text
+  python3 ../proc_tex_proj.py Math1410-Text https://github.com/ULeth-Math-CS/Math1410-Text/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/Math1010Text.git
-  python3 ../proc_tex_proj.py Math1010Text https://github.com/ULeth-Math-CS/Math1010Text
+  python3 ../proc_tex_proj.py Math1010Text https://github.com/ULeth-Math-CS/Math1010Text/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/CalculusTexts.git
-  python3 ../proc_tex_proj.py CalculusTexts https://github.com/ULeth-Math-CS/CalculusTexts
+  python3 ../proc_tex_proj.py CalculusTexts https://github.com/ULeth-Math-CS/CalculusTexts/blob/master
   git clone --depth=1 https://github.com/jirilebl/ra.git
-  python3 ../proc_tex_proj.py ra https://github.com/jirilebl/ra
+  python3 ../proc_tex_proj.py ra https://github.com/jirilebl/ra/blob/master
   git clone --depth=1 https://github.com/HoTT/book.git
-  python3 ../proc_tex_proj.py book https://github.com/HoTT/book
+  python3 ../proc_tex_proj.py book https://github.com/HoTT/book/blob/master
+  git clone --depth=1 https://github.com/jirilebl/diffyqs.git
+  python3 ../proc_tex_proj.py diffyqs https://github.com/jirilebl/diffyqs/blob/master
+  git clone --depth=1 https://github.com/boazbk/crypto.git
+  python3 ../proc_tex_proj.py crypto https://github.com/boazbk/crypto/blob/master
+  git clone --depth=1 https://github.com/boazbk/tcs.git
+  python3 ../proc_tex_proj.py tcs https://github.com/boazbk/tcs/blob/master
+
   git clone --depth=1 https://gitlab.com/jim.hefferon/linear-algebra.git
   python3 ../proc_tex_proj.py linear-algebra https://gitlab.com/jim.hefferon/linear-algebra
-  git clone --depth=1 https://github.com/jirilebl/diffyqs.git
-  python3 ../proc_tex_proj.py diffyqs https://github.com/jirilebl/diffyqs.git
-  git clone --depth=1 https://github.com/boazbk/crypto.git
-  python3 ../proc_tex_proj.py crypto https://github.com/boazbk/crypto.git
-  git clone --depth=1 https://github.com/boazbk/tcs.git
-  python3 ../proc_tex_proj.py tcs https://github.com/boazbk/tcs.git
 
   mkdir book
   wget https://www.gutenberg.org/files/38769/38769-t/38769-t.tex -O book/tex.tex

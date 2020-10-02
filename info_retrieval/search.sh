@@ -73,7 +73,10 @@ for result in results:
     elif value['source'] == 'Stack Exchange':
         links.add('https://' + value['id'])
     else:
-        links.add(value['source'])
+        if 'github' in value['source']:
+            links.add(value['source'] + '/' + value['id'])
+        else:
+            links.add(value['source'])
 print('\n'.join(links))
 EOF
 } > ${temp_file}
