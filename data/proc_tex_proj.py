@@ -2,7 +2,7 @@ from clean_tex import rewrite_or_delete
 from utils import random_string
 
 import glob
-import json
+import pickle
 import shutil
 import sys
 
@@ -10,8 +10,8 @@ if __name__ == '__main__':
     folder = sys.argv[1]
     source = sys.argv[2]
 
-    with open('../metadata.json') as f:
-        index = json.load(f)
+    with open('../metadata.pickle', 'rb') as f:
+        metadata = pickle.load(f)
     # excludes hidden folders
     for fn in glob.glob(folder + '/**/*.tex', recursive=True):
         rewrite_or_delete(fn)
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     ):
         name = random_string(20)
         new_fn = '../documents/' + name
-        index[name] = {
+        metadata[name] = {
             'source': source,
             'id': fn[len(folder + '/'):],
         }
@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
     shutil.rmtree(folder)
 
-    with open('../metadata.json', 'w') as f:
-        json.dump(index, f, indent=2)
+    with open('../metadata.pickle', 'wb') as f:
+        pickle.dump(metadata, f, pickle.HIGHEST_PROTOCOL)
 

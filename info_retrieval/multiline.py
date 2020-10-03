@@ -15,7 +15,7 @@ def proc(fn):
 
 if __name__ == '__main__':
     fns = glob.glob(str(pathlib.Path(__file__).parent) +
-        '/../data/documents_no_newline/*')
+        '/index/documents_no_newline/*')
 
     with multiprocessing.Pool(NUM_CORES) as pool:
         list(tqdm.tqdm(pool.imap(proc, fns), total=len(fns)))

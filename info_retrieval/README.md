@@ -8,8 +8,8 @@ See also:
 
 Applications:
 * literature review, except symbol-based rather than English-based (which
-  Google does based on PDFs), e.g. seeing what has been done with a given
-  expression
+  Google Search does based on PDFs), e.g. seeing what has been done with a
+  given expression
   * surveying what's known and unknown on a subject
   * locating complete solutions to problems
   * generating ideas/inspiration
@@ -36,7 +36,7 @@ Apache Lucene is the standard for big data
 ## Regular expressions
 
 <details>
-  <summary>Installing Google Code Search on Ubuntu 20 and indexing</summary>
+  <summary>Installing Google Code Search on Ubuntu</summary>
 
   ```bash
   sudo apt install golang
@@ -45,13 +45,12 @@ Apache Lucene is the standard for big data
   go get github.com/junkblocker/codesearch/cmd/...
   go install github.com/junkblocker/cmd/cindex
   go install github.com/junkblocker/cmd/csearch
-  cindex ../data/documents
   ```
 </details>
 
-Google Code Search (open sourced [here](https://github.com/google/codesearch),
-but we'll use [this fork](https://github.com/junkblocker/codesearch/))
-uses a trigram index to automatically accelerate regex search.
+[Google Code Search](https://github.com/junkblocker/codesearch/) (GCS)
+is open-source software that uses a trigram index to automatically accelerate
+regex search.
 It doesn't support backreferences;
 however, it can be used as the first step in a two-step search along with PCRE
 search such as ripgrep (on Ubuntu install from
@@ -59,7 +58,7 @@ search such as ripgrep (on Ubuntu install from
 [PCRE2](https://www.pcre.org/current/doc/html/pcre2syntax.html) support) e.g.
 ```bash
 temp_file=$(mktemp)
-# find documents that match <re2_regex> according to Google Code Search
+# find documents that match <re2_regex> according to GCS
 csearch -l <re2_regex> > ${temp_file}
 # among those documents, find the ones that match <pcre2_regex> according to
 # ripgrep
@@ -67,42 +66,26 @@ rg --multiline --pcre2 <pcre2_regex> $(cat ${temp_file})
 ```
 where `<re2_regex>` uses [RE2 syntax](https://github.com/google/re2/wiki/Syntax)
 and ideally matches some small superset of the desired documents.
-([Ag](https://github.com/ggreer/the_silver_searcher) is an alternative to
-ripgrep which doesn't require `--multiline --pcre2`.)
-
-_Warning:_ Google Code Search can only deal with indexes up to 4GB which
-translates to about 20GB of data. (For more data create multiple disjoint
-indexes, search separately, and merge search results.)
-
-_Warning:_ Running `cindex` (but not `csearch`) may have high RAM requirements
-(even in incremental indexing). Multiple indexes as described above is one
-workaround; if indexes are max 1GB then RAM usage should be 2-4GB.
-
-_Warning:_ Google Code Search does not support searching across multiple
-lines and it ignores long lines by default. (But see below.)
-
-<details>
-  <summary>Multiline search</summary>
-
-  We can search across lines by stripping newlines from the documents and
-  telling `cindex` not to skip long lines. The script used below converts all
-  sequences of whitespace to single spaces.
-  <!--If searching specifically for newlines is important, it would be possible
-  to encode newlines as e.g. double spaces or tabs.-->
-  ```bash
-  cd data/
-  cp -r documents documents_no_newline
-  python3 ../info_retrieval/multiline.py
-  cindex -reset -maxlinelen 1000000 ./documents_no_newline
-  ```
-</details>
 
 You'll likely want to use single quotes around regexes on the command line to
 disable shell replacements, e.g. `csearch '\\sqrt{[a-z]}'`
 
 A tool like <https://regex101.com/> can be helpful
 
-Zoekt and Sourcegraph are alternatives to Google Code Search but don't support
+Some drawbacks:
+* GCS can only deal with indexes up to 4GB which translates to about 20GB of
+  data.
+* Running `cindex` (but not `csearch`) may have high RAM requirements. If the
+  index is 1GB then RAM usage will be 2-4GB.
+  <!-- even in incremental indexing -->
+* GCS does not support searching across multiple lines and it ignores long
+  lines by default.
+
+The file `./index.sh` creates an index by using GCS internally but it overcomes
+the caveats mentioned above. The file `./search.sh` is a command line interface
+that uses the index created by `./index.sh`.
+
+Zoekt and Sourcegraph are alternatives to GCS but don't support
 backreferences either.
 Zoekt is notably slower and uses a much larger index but supports multiline
 search.

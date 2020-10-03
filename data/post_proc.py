@@ -1,8 +1,8 @@
 from pathlib import Path
 from unidecode import unidecode
-import json
 import multiprocessing
 import os
+import pickle
 import psutil
 import re
 import tqdm
@@ -32,21 +32,21 @@ def proc(key):
         return key
 
 if __name__ == '__main__':
-    with open('metadata.json') as f:
-        index = json.load(f)
+    with open('metadata.pickle', 'rb') as f:
+        metadata = pickle.load(f)
 
     with multiprocessing.Pool(NUM_CORES) as pool:
         results = list(tqdm.tqdm(
-            pool.imap(proc, index.keys()),
-            total=len(index),
+            pool.imap(proc, metadata.keys()),
+            total=len(metadata),
         ))
         for result in results:
             if result is not None:
                 os.remove('./documents/' + result)
-                del index[result]
+                del metadata[result]
 
-    with open('./metadata.json', 'w') as f:
-        json.dump(index, f, indent=2)
+    with open('./metadata.pickle', 'wb') as f:
+        pickle.dump(metadata, f, pickle.HIGHEST_PROTOCOL)
 
-    print(f'Created {len(index)} files.')
+    print(f'Created {len(metadata)} files.')
 

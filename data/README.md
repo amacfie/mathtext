@@ -24,7 +24,7 @@ Ensure you have sufficient storage space or there will be errors.
 After setting desired variables, to get data run `./get.sh`.
 It may take a long time, so running from tmux is a good idea.
 
-_Output_: files in `./documents/`, and metadata in `./metadata.json`
+_Output_: files in `./documents/`, and metadata in `./metadata.pickle`
 
 For Stack Exchange content, each output file is a question then an answer,
 where the question starts with `<QUESTION>` and the answer starts with

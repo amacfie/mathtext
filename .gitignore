@@ -1,6 +1,5 @@
-data/documents
-data/documents_no_newline
-data/metadata.json
+data/documents*
+data/metadata*
 data/*.txt
 **/*.zoekt
 archive

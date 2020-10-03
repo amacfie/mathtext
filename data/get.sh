@@ -1,7 +1,16 @@
 #!/bin/bash
+
+dirpath="$(dirname "$(readlink -f "$0")")"
+cd ${dirpath}
+
 rm -rf documents
 mkdir documents
-echo "{}" > metadata.json
+
+python3 <<EOF
+import pickle
+with open('metadata.pickle', 'wb') as f:
+    pickle.dump(dict(), f)
+EOF
 
 if [[ -z "$MATHTEXT_NUM_TARS" ]]; then
   MATHTEXT_NUM_TARS=2

@@ -3,9 +3,12 @@
 # usage:
 # MATHTEXT_Q1='first query' MATHTEXT_Q2='second query' ./search.sh
 # MATHTEXT_Q1 goes to csearch, MATHTEXT_Q2 goes to ag on results from csearch.
-# uses `data/documents_no_newline/`.
 
 set -e
+
+# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
+dirpath="$(dirname "$(readlink -f "$0")")"
+cd $dirpath
 
 [[ -f  ~/.mathtext_q1_history ]] || touch ~/.mathtext_q1_history
 [[ -f  ~/.mathtext_q2_history ]] || touch ~/.mathtext_q2_history
@@ -19,18 +22,23 @@ read -r -e -i "$MATHTEXT_Q2" -p "ag query (MATHTEXT_Q2): " MATHTEXT_Q2
 history -s "$MATHTEXT_Q2"
 history -w ~/.mathtext_q2_history
 
-# https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself#comment54598418_246128
-dirpath="$(dirname "$(readlink -f "$0")")"
+function mathtext_csearch {
+  for f in "${dirpath}"/index/index_*; do
+    sem -j +0 "csearch -l -indexpath $f \"${1}\""
+  done
+  sem --wait
+}
+
 results_file=$(mktemp)
 temp_file=$(mktemp)
 if [[ -z "$MATHTEXT_Q1" ]] && [[ -z "$MATHTEXT_Q2" ]]; then
   exit 1
 elif [[ -z "$MATHTEXT_Q1" ]]; then
-  rg --multiline --pcre2 -l "$MATHTEXT_Q2" "${dirpath}/../data/documents_no_newline" > $results_file
+  rg --multiline --pcre2 -l "$MATHTEXT_Q2" "${dirpath}/index/docs_*" > $results_file
 elif [[ -z "$MATHTEXT_Q2" ]]; then
-  csearch -l "$MATHTEXT_Q1" > ${results_file}
+  mathtext_csearch "$MATHTEXT_Q1" > ${results_file}
 else
-  csearch -l "$MATHTEXT_Q1" > ${temp_file}
+  mathtext_csearch "$MATHTEXT_Q1" > ${temp_file}
   if [[ -s ${temp_file} ]]; then
     # rg has been slow for long command lines
     # https://unix.stackexchange.com/a/494689
@@ -41,10 +49,12 @@ else
   fi
 fi
 
+cat $results_file  # jft
+
 {
 python3 - "${dirpath}" "${results_file}" << EOF
-import json
 import pathlib
+import pickle
 import sys
 import urllib
 
@@ -53,8 +63,9 @@ results_file = sys.argv[2]
 
 results = pathlib.Path(results_file).read_text().split('\n')
 
-with open(dirpath + '/../data/metadata.json') as f:
-    docs = json.load(f)
+# this is kinda slow but on a server we'd keep it in memory
+with open(dirpath + '/../data/metadata.pickle', 'rb') as f:
+    docs = pickle.load(f)
 
 links = set()
 for result in results:
