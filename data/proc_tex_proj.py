@@ -10,7 +10,7 @@ if __name__ == '__main__':
     folder = sys.argv[1]
     source = sys.argv[2]
 
-    with open('../index.json') as f:
+    with open('../metadata.json') as f:
         index = json.load(f)
     # excludes hidden folders
     for fn in glob.glob(folder + '/**/*.tex', recursive=True):
@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
     shutil.rmtree(folder)
 
-    with open('../index.json', 'w') as f:
+    with open('../metadata.json', 'w') as f:
         json.dump(index, f, indent=2)
 

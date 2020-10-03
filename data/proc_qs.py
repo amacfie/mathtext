@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 if __name__ == '__main__':
     base_url = sys.argv[1]
 
-    with open('./index.json') as f:
+    with open('./metadata.json') as f:
         index = json.load(f)
 
     for xml_fn in glob.glob(base_url + '/out*'):
@@ -53,6 +53,6 @@ if __name__ == '__main__':
     for txt in glob.glob('/tmp/mt_se_q*'):
         os.remove(txt)
 
-    with open('index.json', 'w') as f:
+    with open('metadata.json', 'w') as f:
         json.dump(index, f, indent=2)
 

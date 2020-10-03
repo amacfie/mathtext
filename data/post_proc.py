@@ -32,7 +32,7 @@ def proc(key):
         return key
 
 if __name__ == '__main__':
-    with open('index.json') as f:
+    with open('metadata.json') as f:
         index = json.load(f)
 
     with multiprocessing.Pool(NUM_CORES) as pool:
@@ -45,7 +45,7 @@ if __name__ == '__main__':
                 os.remove('./documents/' + result)
                 del index[result]
 
-    with open('./index.json', 'w') as f:
+    with open('./metadata.json', 'w') as f:
         json.dump(index, f, indent=2)
 
     print(f'Created {len(index)} files.')

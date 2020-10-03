@@ -1,7 +1,7 @@
 #!/bin/bash
 rm -rf documents
 mkdir documents
-echo "{}" > index.json
+echo "{}" > metadata.json
 
 if [[ -z "$MATHTEXT_NUM_TARS" ]]; then
   MATHTEXT_NUM_TARS=2

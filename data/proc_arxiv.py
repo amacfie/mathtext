@@ -22,7 +22,7 @@ if __name__ == '__main__':
             total=len(tex_fns),
         ))
 
-    with open('index.json') as f:
+    with open('metadata.json') as f:
         index = json.load(f)
     for fn in fns:
         if fn is not None:
@@ -33,6 +33,6 @@ if __name__ == '__main__':
             }
             shutil.move(fn, './documents/' + new_name)
 
-    with open('index.json', 'w') as f:
+    with open('metadata.json', 'w') as f:
         json.dump(index, f, indent=2)
 

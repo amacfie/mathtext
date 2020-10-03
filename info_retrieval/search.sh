@@ -53,7 +53,7 @@ results_file = sys.argv[2]
 
 results = pathlib.Path(results_file).read_text().split('\n')
 
-with open(dirpath + '/../data/index.json') as f:
+with open(dirpath + '/../data/metadata.json') as f:
     docs = json.load(f)
 
 links = set()
