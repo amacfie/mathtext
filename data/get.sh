@@ -3,13 +3,26 @@
 dirpath="$(dirname "$(readlink -f "$0")")"
 cd ${dirpath}
 
-rm -rf documents
-mkdir documents
-
+[ -d documents ] || mkdir documents
+[[ -f arxiv_log.json ]] || echo "[]" > arxiv_log.json
 python3 <<EOF
+import os
 import pickle
-with open('metadata.pickle', 'wb') as f:
-    pickle.dump(dict(), f)
+if not os.path.isfile('metadata.pickle'):
+    with open('metadata.pickle', 'wb') as f:
+        pickle.dump(dict(), f)
+else:
+    with open('metadata.pickle', 'rb') as f:
+        metadata = pickle.load(f)
+    stale_keys = [
+        key for key in metadata if metadata[key]['source'] != 'arXiv'
+    ]
+    print('Clearing stale data')
+    for stale_key in stale_keys:
+        del metadata[stale_key]
+        os.remove('./documents/' + stale_key)
+    with open('./metadata.pickle', 'wb') as f:
+        pickle.dump(metadata, f)
 EOF
 
 if [[ -z "$MATHTEXT_NUM_TARS" ]]; then

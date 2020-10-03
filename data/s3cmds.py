@@ -1,7 +1,11 @@
+import json
 import sys
 import xml.etree.ElementTree as ET
 
 max_lines = int(sys.argv[1])
+
+with open('./arxiv_log.json') as f:
+    arxiv_log = json.load(f)
 
 def yyyymm(yymm):
     return '19' + yymm if yymm[0] == '9' else '20' + yymm
@@ -17,6 +21,14 @@ num_lines = 0
 for f in files:
     if num_lines >= max_lines:
         break
-    print('s3cmd get s3://arxiv/{} --requester-pays'.format(f['filename']))
-    num_lines += 1
+    cmd = 's3cmd get s3://arxiv/{} --requester-pays'.format(f['filename'])
+    if cmd in arxiv_log:
+        continue
+    else:
+        print(cmd)
+        arxiv_log.append(cmd)
+        num_lines += 1
+
+with open('./arxiv_log.json', 'w') as f:
+    json.dump(arxiv_log, f)
 

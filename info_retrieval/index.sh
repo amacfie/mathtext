@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # creates a copy of the corpus with all sequences of whitespace converted to
-# newlines -- after indexing, `data/documents` is not required for searching
-# so delete it unneeded
+# single spaces -- after indexing, `data/documents` is not required for
+# searching so delete it if unneeded
 
 dirpath="$(dirname "$(readlink -f "$0")")"
 cd ${dirpath}
+
 rm -rf ./index
 mkdir ./index
 cp -r ../data/documents ./index/documents_no_newline

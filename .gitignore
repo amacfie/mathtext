@@ -1,6 +1,7 @@
 data/documents*
 data/metadata*
 data/*.txt
+data/arxiv_log.json
 **/*.zoekt
 archive
 info_retrieval/index

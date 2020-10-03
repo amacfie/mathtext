@@ -49,8 +49,6 @@ else
   fi
 fi
 
-cat $results_file  # jft
-
 {
 python3 - "${dirpath}" "${results_file}" << EOF
 import pathlib
@@ -88,7 +86,7 @@ for result in results:
             links.add(value['source'] + '/' + value['id'])
         else:
             links.add(value['source'])
-print('\n'.join(links))
+print('\n'.join(sorted(links)))
 EOF
 } > ${temp_file}
 

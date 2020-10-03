@@ -48,5 +48,5 @@ if __name__ == '__main__':
     with open('./metadata.pickle', 'wb') as f:
         pickle.dump(metadata, f, pickle.HIGHEST_PROTOCOL)
 
-    print(f'Created {len(metadata)} files.')
+    print(f'Corpus has {len(metadata)} files.')
 

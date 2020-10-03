@@ -34,5 +34,5 @@ if __name__ == '__main__':
             shutil.move(fn, './documents/' + new_name)
 
     with open('metadata.pickle', 'wb') as f:
-        json.dump(metadata, f, pickle.HIGHEST_PROTOCOL)
+        pickle.dump(metadata, f, pickle.HIGHEST_PROTOCOL)
 
