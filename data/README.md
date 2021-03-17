@@ -24,7 +24,11 @@ Ensure you have sufficient storage space or there will be errors.
 After setting desired variables, to get data run `./get.sh`.
 It may take a long time, so running from tmux is a good idea.
 
-_Output_: files in `./documents/`, and metadata in `./metadata.pickle`
+_Output_: files in `./documents/`, metadata in `./metadata.pickle`,
+list of arXiv tars downloaded in `./arxiv_log.json`
+
+If you run `get.sh` again it will add to the dataset, downloading new
+arXiv tars.
 
 For Stack Exchange content, each output file is a question then an answer,
 where the question starts with `<QUESTION>` and the answer starts with
