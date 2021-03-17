@@ -101,7 +101,7 @@ pip install -r requirements.txt
 echo "GPU is available:"
 python -c 'import tensorflow as tf; tf.test.is_gpu_available()'
 python download_model.py $MODEL_CODE
-PYTHONPATH=src ./encode.py ../documents/ ./documents.npz
+PYTHONPATH=src ./encode.py --model_name $MODEL_CODE ../documents/ ./documents.npz
 ```
 
 ## Training
