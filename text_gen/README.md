@@ -100,6 +100,8 @@ pip install tensorflow-gpu==1.15
 pip install -r requirements.txt
 echo "GPU is available:"
 python -c 'import tensorflow as tf; tf.test.is_gpu_available()'
+# 2021.Mar.17 addendum: now we need `download_model.py` from the nshepperd repo because
+# it has an updated URL
 python download_model.py $MODEL_CODE
 PYTHONPATH=src ./encode.py --model_name $MODEL_CODE ../documents/ ./documents.npz
 ```
