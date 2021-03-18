@@ -140,6 +140,7 @@ We can now generate samples
 python ./src/interactive_conditional_samples.py --model_name mymodel
 ```
 
+<!--
 ## TPU usage
 
 See Shawn Presser's TPU version
@@ -155,3 +156,4 @@ create TPU node and VM in the same region, set `TPU_NAME` environment variable i
 use the `.npz` file generated with the GPU section. install the `requirements.txt` file from `farrell236` too.
 the one in `shawwn` installs tensorflow 2 and is unnecessary unless you use the optimizer `ada`.
 use `models` folder from the GPU section and install tensorflow(-gpu?) 1.15.
+-->
