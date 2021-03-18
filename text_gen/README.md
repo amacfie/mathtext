@@ -149,3 +149,6 @@ core (ex: batch size of 128*8=1024 for a TPU with 8 cores)."
 
 create TPU node and VM in the same region, set `TPU_NAME` environment variable in VM, set "Cloud API access scopes" to 
 "Allow full access to all Cloud APIs" in VM
+
+use the `.npz` file generated with `farrell236` and install the `requirements.txt` file from `farrell236` too.
+the one in `shawwn` installs tensorflow 2 and is unnecessary unless you use the optimizer `ada`.
