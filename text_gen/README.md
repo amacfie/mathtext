@@ -147,3 +147,5 @@ See Shawn Presser's TPU version
 For TPUs "The rule of thumb is to use batches of 128 elements per
 core (ex: batch size of 128*8=1024 for a TPU with 8 cores)."
 
+create TPU node and VM in the same region, set `TPU_NAME` environment variable in VM, set "Cloud API access scopes" to 
+"Allow full access to all Cloud APIs" in VM
