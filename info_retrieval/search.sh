@@ -34,7 +34,7 @@ temp_file=$(mktemp)
 if [[ -z "$MATHTEXT_Q1" ]] && [[ -z "$MATHTEXT_Q2" ]]; then
   exit 1
 elif [[ -z "$MATHTEXT_Q1" ]]; then
-  rg --multiline --pcre2 -l "$MATHTEXT_Q2" "${dirpath}/index/docs_*" > $results_file
+  rg --multiline --pcre2 -l "$MATHTEXT_Q2" "${dirpath}"/index/docs_* > $results_file
 elif [[ -z "$MATHTEXT_Q2" ]]; then
   mathtext_csearch "$MATHTEXT_Q1" > ${results_file}
 else
