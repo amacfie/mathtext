@@ -152,3 +152,4 @@ create TPU node and VM in the same region, set `TPU_NAME` environment variable i
 
 use the `.npz` file generated with `farrell236` and install the `requirements.txt` file from `farrell236` too.
 the one in `shawwn` installs tensorflow 2 and is unnecessary unless you use the optimizer `ada`.
+use `models` folder from `nshepperd` and install tensorflow(-gpu?) 1.15.
