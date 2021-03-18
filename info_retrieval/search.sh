@@ -24,7 +24,7 @@ history -w ~/.mathtext_q2_history
 
 function mathtext_csearch {
   for f in "${dirpath}"/index/index_*; do
-    sem -j +0 "csearch -l -indexpath $f \"${1}\""
+    sem -j +0 "csearch -l -indexpath $f '""${1}""'"
   done
   sem --wait
 }
