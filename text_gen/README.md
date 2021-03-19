@@ -110,6 +110,8 @@ PYTHONPATH=src ./encode.py --model_name $MODEL_CODE ../documents/ ./documents.np
 
 ## Training
 
+_Note: A notebook with training on Google Colab is [here](https://colab.research.google.com/drive/1jc1L04RTfEjscTPtI46vd0OpBJpzw5Od?usp=sharing)._
+
 We are ready to train.
 Since the following is a long-running command you may want to run it in tmux:
 ```bash
