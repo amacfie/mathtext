@@ -16,6 +16,13 @@ The following is a tutorial for using a text generation model with the corpus.
 
 applications: generate inspiration/ideas for next steps in a proof
 
+## Results
+
+| Pretrained model  | Dataset (subset) size | Batch size | Accelerator | Learning rate | Running time | Validation loss | Sampling temperature | Output |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| 355M  | 6GB  | 1 | GPU | default | a few days | 1.35 | 1 | Some coherence but practically useless |
+
+
 ## Model: GPT-2
 
 We'll use GPT-2 although alternatives exist such as
@@ -37,9 +44,9 @@ https://medium.com/@NPCollapse/replicating-gpt2-1-5b-86454a7f26af
 
 ## Configuring VM
 
-If you're a researcher, see [TensorFlow Research Cloud](https://www.tensorflow.org/tfrc)
+<!--If you're a researcher, see [TensorFlow Research Cloud](https://www.tensorflow.org/tfrc)
 to apply for free TPU credits.
-You may still want to experiment with a GPU first.
+You may still want to experiment with a GPU first.-->
 
 It's easiest to use Google's
 [deep learning image](https://console.cloud.google.com/marketplace/details/click-to-deploy-images/deeplearning?_ga=2.41035681.2087968058.1597093079-761847582.1591646209).
