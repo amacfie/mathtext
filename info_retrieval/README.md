@@ -43,8 +43,8 @@ Apache Lucene is the standard for big data
   export PATH=$PATH:/usr/local/go/bin
   export PATH=$PATH:$HOME/go/bin
   go get github.com/junkblocker/codesearch/cmd/...
-  go install github.com/junkblocker/cmd/cindex
-  go install github.com/junkblocker/cmd/csearch
+  go install github.com/junkblocker/codesearch/cmd/cindex
+  go install github.com/junkblocker/codesearch/cmd/csearch
   ```
 </details>
 
