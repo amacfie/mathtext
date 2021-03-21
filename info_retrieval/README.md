@@ -82,7 +82,8 @@ Some drawbacks:
   lines by default.
 
 The file `./index.sh` creates an index by using GCS internally but it overcomes
-the caveats mentioned above. The file `./search.sh` is a command line interface
+the caveats mentioned above with the help of [junkblocker's GCS fork](https://github.com/junkblocker/codesearch/).
+The file `./search.sh` is a command line interface
 that uses the index created by `./index.sh`.
 
 Zoekt and Sourcegraph are alternatives to GCS but don't support
