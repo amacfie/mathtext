@@ -20,7 +20,7 @@ applications: generate inspiration/ideas for next steps in a proof
 
 | Pretrained model  | Dataset (subset) size | Batch size | Accelerator | Learning rate | Running time | Validation loss | Sampling temperature | Output |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| 355M  | 6GB  | 1 | GPU | default | a few days | 1.35 | 1 | Some coherence but practically useless |
+| 355M  | 6GB  | 1 | GPU | default | a few days | 1.25 | 1 | Some coherence but practically useless |
 
 
 ## Model: GPT-2
