@@ -14,6 +14,9 @@ for 117M, we can have a batch size of 3 on T4.
 
 The following is a tutorial for using a text generation model with the corpus.
 
+see also:
+* <https://pile.eleuther.ai/#:~:text=leaderboard>
+
 applications: generate inspiration/ideas for next steps in a proof
 
 ## Results
