@@ -13,5 +13,5 @@ RUN go install github.com/junkblocker/codesearch/cmd/cindex
 RUN go install github.com/junkblocker/codesearch/cmd/csearch
 ENV PATH="/root/go/bin:/usr/local/go/bin:${PATH}"
 WORKDIR /code
-# create this file with `s3cmd --configure`
+# create this file with `s3cmd --configure` then do `cp ~/.s3cfg .`
 COPY ./.s3cfg /root/.s3cfg
