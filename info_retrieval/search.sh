@@ -10,17 +10,18 @@ set -e
 dirpath="$(dirname "$(readlink -f "$0")")"
 cd $dirpath
 
-[[ -f  ~/.mathtext_q1_history ]] || touch ~/.mathtext_q1_history
-[[ -f  ~/.mathtext_q2_history ]] || touch ~/.mathtext_q2_history
-history -r ~/.mathtext_q1_history
+mkdir -p ~/.config/mathtext
+[[ -f  ~/.config/mathtext/q1_history ]] || touch ~/.config/mathtext/q1_history
+[[ -f  ~/.config/mathtext/q2_history ]] || touch ~/.config/mathtext/q2_history
+history -r ~/.config/mathtext/q1_history
 read -r -e -i "$MATHTEXT_Q1" -p "csearch query (MATHTEXT_Q1): " MATHTEXT_Q1
 history -s "$MATHTEXT_Q1"
-history -w ~/.mathtext_q1_history
+history -w ~/.config/mathtext/q1_history
 history -c
-history -r ~/.mathtext_q2_history
+history -r ~/.config/mathtext/q2_history
 read -r -e -i "$MATHTEXT_Q2" -p "ag query (MATHTEXT_Q2): " MATHTEXT_Q2
 history -s "$MATHTEXT_Q2"
-history -w ~/.mathtext_q2_history
+history -w ~/.config/mathtext/q2_history
 
 function mathtext_csearch {
   for f in "${dirpath}"/index/index_*; do

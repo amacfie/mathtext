@@ -1,5 +1,5 @@
 # usage:
-# make sure .s3cfg file is present (see Dockerfile)
+# to download from arxiv make sure .s3cfg file is present (see Dockerfile)
 # sudo docker-compose -f dev_docker-compose.yml run web
 
 
