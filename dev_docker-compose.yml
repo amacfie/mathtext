@@ -1,0 +1,11 @@
+# note that you'll have to run `s3cmd --configure` for s3cmd to work
+
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    # https://stackoverflow.com/a/45450456/371334
+    command: tail -F anything
