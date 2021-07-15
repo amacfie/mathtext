@@ -25,7 +25,8 @@ history -w ~/.config/mathtext/q2_history
 
 function mathtext_csearch {
   for f in "${dirpath}"/index/index_*; do
-    sem -j +0 "csearch -l -indexpath $f '""${1}""'"
+    escaped=$(echo "${1}" | sed -e "s/'/'\\\\''/g")
+    sem -j +0 "csearch -l -indexpath $f '""${escaped}""'"
   done
   sem --wait
 }
