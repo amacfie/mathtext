@@ -15,6 +15,9 @@ for 117M, we can have a batch size of 3 on T4.
 The following is a tutorial for using a text generation model with the corpus.
 
 see also:
+* [AlphaCode](https://deepmind.com/blog/article/Competitive-programming-with-AlphaCode)
+  * Trained on 3GB corpus of algorithm design problems and solutions.
+  * The output text is executable code which has certain advantages.
 * <https://pile.eleuther.ai/#:~:text=leaderboard>
 
 applications: generate inspiration/ideas for next steps in a proof
