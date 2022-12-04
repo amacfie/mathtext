@@ -16,7 +16,7 @@ The following is a tutorial for using a text generation model with the corpus.
 
 Addendum:
 Work has been done since that has been much more successful, see e.g.
-<https://github.com/amacfie/public_notes/wiki/Automatic-natural-language-problem-solving-in-the-formal-sciences>.
+<https://github.com/amacfie/public_notes/wiki/Survey:-Automatic-natural-language-problem-solving-in-the-formal-sciences>.
 
 applications: generate inspiration/ideas for next steps in a proof
 
