@@ -91,6 +91,7 @@ Zoekt and Sourcegraph are alternatives to GCS but don't support
 backreferences either.
 Zoekt is notably slower and uses a much larger index but supports multiline
 search.
+Postgres supports fast regex search with pg_trgm.
 
 
 ## Structural search
@@ -107,4 +108,20 @@ somewhat overly-inclusive search.
 Chroma is a vector database for semantic search.
 The file `./chroma_index.py` creates an index from the corpus, and the file
 `./chroma_search.py` is a demo for doing queries.
+Its default text model was apparently trained on the Stack Exchange sites so
+should know LaTeX math.
+
+Postgres together with `pgvector` can also be used for semantic search. The
+documents and search query must be converted to embeddings beforehand. One way
+to do so is locally through Chroma:
+```python
+from chromadb.utils import embedding_functions
+
+default_ef = embedding_functions.DefaultEmbeddingFunction()
+
+embeddings = default_ef(["foo", "bar"])
+# embeddings is now [[0.05035809800028801, 0.0626462921500206, -0.061827320605516434...]]
+```
+Another way is the OpenAI API:
+<https://platform.openai.com/docs/guides/embeddings>
 
