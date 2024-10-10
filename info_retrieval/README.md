@@ -120,7 +120,7 @@ from chromadb.utils import embedding_functions
 default_ef = embedding_functions.DefaultEmbeddingFunction()
 
 embeddings = default_ef(["foo", "bar"])
-# embeddings is now [[0.05035809800028801, 0.0626462921500206, -0.061827320605516434...]]
+# embeddings is now [[0.05035809800028801, 0.0626462921500206, -0.061827320605516434...], [...]]
 ```
 Another way is the OpenAI API:
 <https://platform.openai.com/docs/guides/embeddings>
