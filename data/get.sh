@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 dirpath="$(dirname "$(readlink -f "$0")")"
 cd ${dirpath}
@@ -101,8 +101,6 @@ if [[ -z "$MATHTEXT_SKIP_PROJECTS" ]]; then
 
   git clone --depth=1 https://github.com/OpenLogicProject/OpenLogic.git
   python3 ../proc_tex_proj.py OpenLogic https://github.com/OpenLogicProject/OpenLogic/blob/master
-  git clone --depth=1 https://github.com/Ben-McKay/concrete-algebra.git
-  python3 ../proc_tex_proj.py concrete-algebra https://github.com/Ben-McKay/concrete-algebra/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/APEXCalculusV4.git
   python3 ../proc_tex_proj.py APEXCalculusV4 https://github.com/ULeth-Math-CS/APEXCalculusV4/blob/master
   git clone --depth=1 https://github.com/ULeth-Math-CS/Math1410-Text.git

@@ -5,7 +5,6 @@
   }) {}
 }:
 
-
 pkgs.mkShell {
   packages = [
     pkgs.s3cmd
@@ -17,16 +16,6 @@ pkgs.mkShell {
     pkgs.ripgrep
     pkgs.wget
     pkgs.unp
-
-    # TODO: twig
-
-    (pkgs.python312.withPackages (ps: [
-      ps.beautifulsoup4
-      ps.unidecode
-      ps.tqdm
-      ps.psutil
-      ps.lxml
-    ]))
     (pkgs.buildGoModule rec {
       pname = "codesearch";
       version = "1.3.0";
@@ -68,6 +57,13 @@ pkgs.mkShell {
         mainProgram = "xml_split";
       };
     })
+    (pkgs.python311.withPackages (ps: [
+      ps.beautifulsoup4
+      ps.unidecode
+      ps.tqdm
+      ps.psutil
+      ps.lxml
+    ]))
   ];
 }
 
