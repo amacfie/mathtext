@@ -29,6 +29,12 @@ if [[ -z "$MATHTEXT_NUM_TARS" ]]; then
   MATHTEXT_NUM_TARS=2
 fi
 if ((MATHTEXT_NUM_TARS > 0)); then
+  if [ -z "$(s3cmd --dump-config | grep -P '^access_key' | cut -d' ' -f3)" ]
+  then
+    echo "Please run 's3cmd --configure' first"
+    exit 1
+  fi
+
   # https://arxiv.org/help/bulk_data_s3#src
   s3cmd get s3://arxiv/src/arXiv_src_manifest.xml --requester-pays --force
   python3 ./s3cmds.py $MATHTEXT_NUM_TARS > ./s3cmds.txt

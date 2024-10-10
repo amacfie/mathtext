@@ -6,11 +6,6 @@ See also:
 * [S2ORC: The Semantic Scholar Open Research Corpus](https://arxiv.org/pdf/1911.02782.pdf)
 * [The Pile](https://www.gwern.net/Variables#data) free arXiv dataset
 
-Tested on _Ubuntu 18_ and _20_
-
-The script `./install.sh` installs dependencies.
-It is recommended to use a Python virtual environment.
-
 _Warning:_ Downloading arXiv content will result in
 [charges](https://aws.amazon.com/s3/pricing/) to your AWS
 account and unpacking many arXiv tar files takes a very long time.
