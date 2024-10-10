@@ -59,6 +59,7 @@ pkgs.mkShell {
     })
     (pkgs.python311.withPackages (ps: [
       ps.beautifulsoup4
+      ps.chromadb
       ps.unidecode
       ps.tqdm
       ps.psutil

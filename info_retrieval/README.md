@@ -92,6 +92,7 @@ backreferences either.
 Zoekt is notably slower and uses a much larger index but supports multiline
 search.
 
+
 ## Structural search
 
 [Comby](https://comby.dev/docs/overview) supports LaTeX
@@ -99,4 +100,11 @@ search.
 If structural search is slow we may want to do a two-step search as above,
 i.e. using structural search to refine results returned by a fast but
 somewhat overly-inclusive search.
+
+
+## Semantic analysis
+
+Chroma is a vector database for semantic search.
+The file `./chroma_index.py` creates an index from the corpus, and the file
+`./chroma_search.py` is a demo for doing queries.
 

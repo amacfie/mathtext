@@ -5,8 +5,9 @@ data/arxiv_log.json
 **/*.zoekt
 archive
 info_retrieval/index
+info_retrieval/chroma_data
 .s3cfg
-
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
